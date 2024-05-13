@@ -76,6 +76,7 @@ def dumb_response_generator(sentence):
 
 
 client = boto3.client("runtime.sagemaker", 
+                        region_name= "eu-central-1",
                         aws_access_key_id=st.secrets.default.aws_access_key_id,
                         aws_secret_access_key=st.secrets.default.aws_secret_access_key,
                         aws_session_token=st.secrets.default.aws_session_token,
