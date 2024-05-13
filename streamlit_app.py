@@ -79,7 +79,7 @@ client = boto3.client("runtime.sagemaker",
                         aws_access_key_id=st.secrets["aws_access_key_id"] 
                         aws_secret_access_key=st.secrets["aws_secret_access_key"] 
                         aws_session_token=st.secrets["aws_session_token"]
-                        
+)
 with st.sidebar:
 
     if st.button("Nuova conversazione", type="primary"):
