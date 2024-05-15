@@ -92,7 +92,7 @@ with st.sidebar:
 
     model = st.selectbox(
         "Selezione il modello con cui interagire",
-        ("Mistral", "Gemma"))
+        ("Mistral", "Mistral DeepMount"))
 
 
 # if model == 'Mistral':
@@ -100,7 +100,7 @@ logging.info(f'Modello scelto: {model}')
 st.title("LLM NAZIONALE")
 st.header(model)   
 
-# if model == 'Gemma': 
+# if model == 'Mistral DeepMount': 
 #     logging.info(f'Modello scelto: {model}')
 #     st.title("LLM NAZIONALE")
 
@@ -138,7 +138,7 @@ if prompt := st.chat_input("Scrivi.."):
         
             response = st.write_stream(response_generator(stream))
     
-    elif model == 'Gemma':
+    elif model == 'Mistral DeepMount':
         with st.chat_message("assistant"):
             stream = client.invoke_endpoint_with_response_stream(
                 EndpointName="llm-nazionale-mistralMount-demo15052024",
