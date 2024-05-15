@@ -132,7 +132,7 @@ if prompt := st.chat_input("Scrivi.."):
     if model == 'Mistral':
         with st.chat_message("assistant"):
             stream = client.invoke_endpoint_with_response_stream(
-                EndpointName="llm-nazionale-mistral-demo13052024",
+                EndpointName="llm-nazionale-mistral-demo15052024",
                 Body=json.dumps(payload),
                 ContentType="application/json")
         
@@ -141,7 +141,7 @@ if prompt := st.chat_input("Scrivi.."):
     elif model == 'Gemma':
         with st.chat_message("assistant"):
             stream = client.invoke_endpoint_with_response_stream(
-                EndpointName="llm-nazionale-mistralMount-demo13052024",
+                EndpointName="llm-nazionale-mistralMount-demo15052024",
                 Body=json.dumps(payload),
                 ContentType="application/json")
         
