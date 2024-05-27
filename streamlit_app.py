@@ -32,6 +32,10 @@ STOPWORD_SEQ_2 = ['\n', ' [', '|', 'U', 'man', 'o']
 SKIPWORD_SEQ_1 = ['\n', '[', '|', 'AI', '|', ']']
 SKIPWORD_SEQ_2 = ['\n', ' [', '|', 'AI', '|', ']']
 
+IMAGE_URL = (
+        "https://play-lh.googleusercontent.com/1SYd62lmDg6gita4ZZe8mVfVbGGKNHwEtKCVNHQv9LgQ_311tPv9dpmmWS8ZM3uxlrPY"
+    )
+
 
 class History:
     def __init__(self):
@@ -130,7 +134,7 @@ if prompt := st.chat_input("Scrivi.."):
         }
 
     if model == 'Mistral':
-        with st.chat_message("assistant"):
+        with st.chat_message("assistant", avatar=IMAGE_URL):
             stream = client.invoke_endpoint_with_response_stream(
                 EndpointName="llm-nazionale-llama-demo27052024-v3",
                 Body=json.dumps(payload),
@@ -139,7 +143,7 @@ if prompt := st.chat_input("Scrivi.."):
             response = st.write_stream(response_generator(stream))
     
     elif model == 'Mistral DeepMount':
-        with st.chat_message("assistant"):
+        with st.chat_message("assistant", avatar=IMAGE_URL):
             stream = client.invoke_endpoint_with_response_stream(
                 EndpointName="llm-nazionale-llama-demo27052024-v3",
                 Body=json.dumps(payload),
