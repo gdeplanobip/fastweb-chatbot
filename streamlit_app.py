@@ -132,7 +132,7 @@ if prompt := st.chat_input("Scrivi.."):
     if model == 'Mistral':
         with st.chat_message("assistant"):
             stream = client.invoke_endpoint_with_response_stream(
-                EndpointName="llm-nazionale-mistral-demo15052024",
+                EndpointName="llm-nazionale-llama-demo27052024-v3",
                 Body=json.dumps(payload),
                 ContentType="application/json")
         
