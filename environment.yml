@@ -1,3 +1,5 @@
 name: ChatUI
 dependencies:
   - boto3
+  - streamlit-chat
+  - streamlit-extras
