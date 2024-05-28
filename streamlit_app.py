@@ -96,7 +96,7 @@ with st.sidebar:
         "Selezione il modello con cui interagire",
         ("Mistral", "Mistral DeepMount"))
 
-    add_vertical_space(20)
+    add_vertical_space(30)
     
     if st.button("Nuova conversazione", type="primary"):
         for key in st.session_state.keys():
