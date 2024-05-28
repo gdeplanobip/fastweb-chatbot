@@ -98,7 +98,7 @@ with st.sidebar:
 
     add_vertical_space(30)
     
-    if st.button("Nuova conversazione", type="primary"):
+    if st.button("Nuova conversazione", use_container_width =True):
         for key in st.session_state.keys():
             del st.session_state[key]
         logging.info("Reset storico conversazione per scelta dell'utente")
