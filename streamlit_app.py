@@ -86,7 +86,7 @@ client = boto3.client("runtime.sagemaker",
 )
 
 with st.sidebar:
-    st.image(logo_url)
+    st.image(LOGO_URL)
     if st.button("Nuova conversazione", type="primary"):
         for key in st.session_state.keys():
             del st.session_state[key]
