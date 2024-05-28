@@ -90,17 +90,16 @@ with st.sidebar:
     
     st.divider()
     
-    if st.button("Nuova conversazione", type="primary"):
-        for key in st.session_state.keys():
-            del st.session_state[key]
-        logging.info("Reset storico conversazione per scelta dell'utente")
-
-    # st.divider()
-
     model = st.selectbox(
         "Selezione il modello con cui interagire",
         ("Mistral", "Mistral DeepMount"))
 
+    add_vertical_space(20)
+    
+    if st.button("Nuova conversazione", type="primary"):
+        for key in st.session_state.keys():
+            del st.session_state[key]
+        logging.info("Reset storico conversazione per scelta dell'utente")
 
 # if model == 'Mistral':
 logging.info(f'Modello scelto: {model}')
