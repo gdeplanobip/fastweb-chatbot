@@ -95,7 +95,7 @@ with st.sidebar:
             del st.session_state[key]
         logging.info("Reset storico conversazione per scelta dell'utente")
 
-    st.divider()
+    # st.divider()
 
     model = st.selectbox(
         "Selezione il modello con cui interagire",
