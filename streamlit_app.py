@@ -32,9 +32,8 @@ STOPWORD_SEQ_2 = ['\n', ' [', '|', 'U', 'man', 'o']
 SKIPWORD_SEQ_1 = ['\n', '[', '|', 'AI', '|', ']']
 SKIPWORD_SEQ_2 = ['\n', ' [', '|', 'AI', '|', ']']
 
-IMAGE_URL = (
-        "https://play-lh.googleusercontent.com/1SYd62lmDg6gita4ZZe8mVfVbGGKNHwEtKCVNHQv9LgQ_311tPv9dpmmWS8ZM3uxlrPY"
-    )
+LOGO_URL = "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Fastweb_logo.svg/2560px-Fastweb_logo.svg.png"
+BOT_LOGO_URL = ("https://play-lh.googleusercontent.com/1SYd62lmDg6gita4ZZe8mVfVbGGKNHwEtKCVNHQv9LgQ_311tPv9dpmmWS8ZM3uxlrPY")
 
 
 class History:
@@ -85,8 +84,9 @@ client = boto3.client("runtime.sagemaker",
                         aws_secret_access_key=st.secrets.default.aws_secret_access_key,
                         aws_session_token=st.secrets.default.aws_session_token,
 )
-with st.sidebar:
 
+with st.sidebar:
+    st.image(logo_url)
     if st.button("Nuova conversazione", type="primary"):
         for key in st.session_state.keys():
             del st.session_state[key]
@@ -121,7 +121,7 @@ for message in st.session_state.messages:
         with st.chat_message(message["role"]):
             st.markdown(message["content"])
     else:
-        with st.chat_message(message["role"], avatar=IMAGE_URL):
+        with st.chat_message(message["role"], avatar=BOT_LOGO_URL):
             st.markdown(message["content"])
 
 if prompt := st.chat_input("Scrivi.."):
@@ -138,7 +138,7 @@ if prompt := st.chat_input("Scrivi.."):
         }
 
     if model == 'Mistral':
-        with st.chat_message("assistant", avatar=IMAGE_URL):
+        with st.chat_message("assistant", avatar=BOT_LOGO_URL):
             stream = client.invoke_endpoint_with_response_stream(
                 EndpointName="llm-nazionale-mistral-demo28052024",
                 Body=json.dumps(payload),
@@ -147,7 +147,7 @@ if prompt := st.chat_input("Scrivi.."):
             response = st.write_stream(response_generator(stream))
     
     elif model == 'Mistral DeepMount':
-        with st.chat_message("assistant", avatar=IMAGE_URL):
+        with st.chat_message("assistant", avatar=BOT_LOGO_URL):
             stream = client.invoke_endpoint_with_response_stream(
                 EndpointName="llm-nazionale-llama-demo27052024-v3",
                 Body=json.dumps(payload),
