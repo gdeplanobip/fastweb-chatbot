@@ -89,12 +89,13 @@ client = boto3.client("runtime.sagemaker",
 
 with st.sidebar:
     st.image(LOGO_URL)
+    st.title(':yellow[_Enea_]')
     
     st.divider()
     
     model = st.selectbox(
         "Selezione il modello con cui interagire",
-        ("Mistral", "Mistral DeepMount"))
+        ("Mistral", "Llama"))
 
     add_vertical_space(30)
     
@@ -144,16 +145,16 @@ if prompt := st.chat_input("Scrivi.."):
     if model == 'Mistral':
         with st.chat_message("assistant", avatar=BOT_LOGO_URL):
             stream = client.invoke_endpoint_with_response_stream(
-                EndpointName="llm-nazionale-mistral-demo28052024",
+                EndpointName="llm-nazionale-mistral-demo29052024",
                 Body=json.dumps(payload),
                 ContentType="application/json")
         
             response = st.write_stream(response_generator(stream))
     
-    elif model == 'Mistral DeepMount':
+    elif model == 'Llama':
         with st.chat_message("assistant", avatar=BOT_LOGO_URL):
             stream = client.invoke_endpoint_with_response_stream(
-                EndpointName="llm-nazionale-llama-demo27052024-v3",
+                EndpointName="llm-nazionale-llama-demo29052024-v3",
                 Body=json.dumps(payload),
                 ContentType="application/json")
         
