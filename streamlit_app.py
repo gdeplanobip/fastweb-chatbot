@@ -113,6 +113,7 @@ if "history" not in st.session_state:
     st.session_state["history"] = History()
     st.session_state["input_disabled"] = False
     logging.info('Inizializzazione storico conversazione')
+    logging.info('Input OK')
 
 if "messages" not in st.session_state:
     st.session_state.messages = []
@@ -130,6 +131,7 @@ if prompt := st.chat_input(
     disabled=st.session_state["input_disabled"],
     on_submit=disable_input
     ):
+    logging.info('Input KO')
     st.session_state.messages.append({"role": "user", "content": prompt})
     with st.chat_message("user"):
         st.markdown(prompt)
@@ -150,6 +152,7 @@ if prompt := st.chat_input(
                 ContentType="application/json")              
             response = st.write_stream(response_generator(stream))
             st.session_state["input_disabled"] = False
+            logging.info('Input OK')
 
     elif model == 'Llama':
         with st.chat_message("assistant", avatar=BOT_LOGO_URL):
