@@ -80,8 +80,8 @@ def dumb_response_generator(sentence):
         yield word + " "
         time.sleep(0.05)
 
-# def disable_input():
-#     st.session_state["input_disabled"] = True
+def disable_input():
+    st.session_state["input_disabled"] = True
 
 client = boto3.client("runtime.sagemaker", 
                         region_name= "eu-central-1",
@@ -92,10 +92,8 @@ client = boto3.client("runtime.sagemaker",
 
 with st.sidebar:
     st.image(LOGO_URL)
-    # st.title(':orange[_Enea_]')
     st.markdown("<h1 style='text-align: right; color: #fdc500;'>Enea</h1>", unsafe_allow_html=True)
 
-    
     st.divider()
     
     model = st.selectbox(
@@ -109,15 +107,7 @@ with st.sidebar:
             del st.session_state[key]
         logging.info("Reset storico conversazione per scelta dell'utente")
 
-# if model == 'Mistral':
 logging.info(f'Modello scelto: {model}')
-# st.title("LLM NAZIONALE")
-# st.header(model)   
-
-# if model == 'Mistral DeepMount': 
-#     logging.info(f'Modello scelto: {model}')
-#     st.title("LLM NAZIONALE")
-
 
 if "history" not in st.session_state:
     st.session_state["history"] = History()
@@ -137,9 +127,9 @@ for message in st.session_state.messages:
 
 if prompt := st.chat_input(
     "Scrivi..",
-    # disabled=st.session_state["input_disabled"],
-    # on_submit=disable_input
-):
+    disabled=st.session_state["input_disabled"],
+    on_submit=disable_input
+    ):
     st.session_state.messages.append({"role": "user", "content": prompt})
     with st.chat_message("user"):
         st.markdown(prompt)
@@ -159,6 +149,7 @@ if prompt := st.chat_input(
                 Body=json.dumps(payload),
                 ContentType="application/json")              
             response = st.write_stream(response_generator(stream))
+            st.session_state["input_disabled"] = False
 
     elif model == 'Llama':
         with st.chat_message("assistant", avatar=BOT_LOGO_URL):
