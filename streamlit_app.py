@@ -111,8 +111,10 @@ logging.info(f'Modello scelto: {model}')
 
 if "history" not in st.session_state:
     st.session_state["history"] = History()
-    st.session_state["input_disabled"] = False
     logging.info('Inizializzazione storico conversazione')
+
+if "input_disabled" not in st.session_state:
+    st.session_state["input_disabled"] = False
     logging.info('Input OK')
 
 if "messages" not in st.session_state:
@@ -126,18 +128,15 @@ for message in st.session_state.messages:
         with st.chat_message(message["role"], avatar=BOT_LOGO_URL):
             st.markdown(message["content"])
 
-prompt = st.chat_input("Ask a question", key="fake")
-if prompt:
-    st.chat_input("Ask a question", key="real", disabled=st.session_state["input_disabled"],
-        on_submit=disable_input)
-    # st.chat_input(
-    #     "Scrivi..",
-    #     disabled=st.session_state["input_disabled"],
-    #     on_submit=disable_input
-    #     )
-# if prompt != "":
-    logging.info('Input KO')
-    st.session_state.messages.append({"role": "user", "content": prompt})
+prompt = st.chat_input(
+    "Scrivi..",
+    disabled=st.session_state["input_disabled"],
+    on_submit=disable_input
+    )
+logging.info('Input KO')
+st.session_state.messages.append({"role": "user", "content": prompt})
+
+if prompt != "":
     with st.chat_message("user"):
         st.markdown(prompt)
         st.session_state["history"].add(subject="Umano", message=prompt)
@@ -166,10 +165,14 @@ if prompt:
                 Body=json.dumps(payload),
                 ContentType="application/json")
             response = st.write_stream(response_generator(stream))
+            st.session_state["input_disabled"] = False
+            logging.info('Input OK')
 
 
     st.session_state.messages.append({"role": "assistant", "content": response})
     st.session_state["history"].add(subject="AI", message=response)
+    st.session_state["input_disabled"] = False
+    logging.info('Input OK')
     print("------ OUTPUT --------")
     print(st.session_state["history"].format())
     print()
