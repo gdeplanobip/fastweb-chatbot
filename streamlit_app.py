@@ -108,8 +108,8 @@ with st.sidebar:
 
 # if model == 'Mistral':
 logging.info(f'Modello scelto: {model}')
-st.title("LLM NAZIONALE")
-st.header(model)   
+# st.title("LLM NAZIONALE")
+# st.header(model)   
 
 # if model == 'Mistral DeepMount': 
 #     logging.info(f'Modello scelto: {model}')
