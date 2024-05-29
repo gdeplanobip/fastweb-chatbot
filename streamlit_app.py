@@ -187,9 +187,6 @@ if prompt:
     print(st.session_state["history"].format())
     print()
     logging.info('step 7')
-prompt = "cane"
+# prompt = None
 logging.info('step 8')
 logging.info(f"{st.session_state['history'].format()}")
-
-# if prompt == "cane": 
-#     st.rerun()
