@@ -132,15 +132,14 @@ for message in st.session_state.messages:
 prompt = st.chat_input(
     "Scrivi..",
     disabled=st.session_state["input_disabled"],
-    # on_submit=disable_input
+    on_submit=disable_input
     )
 logging.info(f'prompt: {prompt}')
 st.session_state.messages.append({"role": "user", "content": prompt})
 
 if prompt:
-    st.session_state["input_disabled"] = True
-    logging.info('Input KO, per if prompt')
-    logging.info(f'prompt: {prompt}')
+    # st.session_state["input_disabled"] = True
+    # logging.info('Input KO, per if prompt')
     with st.chat_message("user"):
         st.markdown(prompt)
         st.session_state["history"].add(subject="Umano", message=prompt)
