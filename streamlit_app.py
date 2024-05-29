@@ -129,6 +129,8 @@ for message in st.session_state.messages:
         with st.chat_message(message["role"], avatar=BOT_LOGO_URL):
             st.markdown(message["content"])
 
+logging.info('step 1')
+
 prompt = st.chat_input(
     "Scrivi..",
     disabled=st.session_state["input_disabled"],
@@ -137,20 +139,23 @@ prompt = st.chat_input(
 logging.info(f'prompt: {prompt}')
 st.session_state.messages.append({"role": "user", "content": prompt})
 
+logging.info('step 2')
+
 if prompt:
     # st.session_state["input_disabled"] = True
     # logging.info('Input KO, per if prompt')
+    logging.info('step 3')
     with st.chat_message("user"):
         st.markdown(prompt)
         st.session_state["history"].add(subject="Umano", message=prompt)
         message = st.session_state["history"].format()
-
+    logging.info('step 4')
     payload = {
         "inputs": message,
         "parameters": {"max_new_tokens": 256, "stop":["[|Umano|]"]},
         "stream": True
         }
-
+    logging.info('step 5')
     if model == 'Mistral':
         with st.chat_message("assistant", avatar=BOT_LOGO_URL):
             stream = client.invoke_endpoint_with_response_stream(
@@ -170,7 +175,7 @@ if prompt:
             response = st.write_stream(response_generator(stream))
             st.session_state["input_disabled"] = False
             logging.info('Input OK')
-
+    logging.info('step 6')
 
     st.session_state.messages.append({"role": "assistant", "content": response})
     st.session_state["history"].add(subject="AI", message=response)
@@ -179,4 +184,6 @@ if prompt:
     print("------ OUTPUT --------")
     print(st.session_state["history"].format())
     print()
+    logging.info('step 7')
 prompt = None
+logging.info('step 8')
