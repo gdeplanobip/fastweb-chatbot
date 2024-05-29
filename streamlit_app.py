@@ -1,3 +1,5 @@
+# debug 
+
 """ 
 TO RUN YOUR APP USE THIS COMMAND ON TERMINAL
 -> streamlit run chatbot_duble.py
@@ -131,15 +133,13 @@ for message in st.session_state.messages:
 
 logging.info('step 1')
 
-prompt = "ciao"
-if not st.session_state["input_disabled"]:
-    prompt = st.chat_input(
-        "Scrivi..",
-        # disabled=st.session_state["input_disabled"],
-        on_submit=disable_input
-        )
-    logging.info(f'prompt: {prompt}')
-    st.session_state.messages.append({"role": "user", "content": prompt})
+prompt = st.chat_input(
+    "Scrivi..",
+    # disabled=st.session_state["input_disabled"],
+    on_submit=disable_input
+    )
+logging.info(f'prompt: {prompt}')
+st.session_state.messages.append({"role": "user", "content": prompt})
 
 logging.info('step 2')
 
@@ -190,3 +190,4 @@ if prompt:
 # prompt = None
 logging.info('step 8')
 logging.info(f"{st.session_state['history'].format()}")
+st.rerun()
