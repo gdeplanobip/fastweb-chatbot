@@ -89,7 +89,7 @@ client = boto3.client("runtime.sagemaker",
 
 with st.sidebar:
     st.image(LOGO_URL)
-    st.title(':yellow[_Enea_]')
+    st.title(':orange[_Enea_]')
     
     st.divider()
     
