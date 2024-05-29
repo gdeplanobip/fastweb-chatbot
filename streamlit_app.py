@@ -137,8 +137,9 @@ for message in st.session_state.messages:
 
 if prompt := st.chat_input(
     "Scrivi..",
-    disabled=st.session_state["input_disabled"],
-    on_submit=disable_input):
+    # disabled=st.session_state["input_disabled"],
+    # on_submit=disable_input
+):
     st.session_state.messages.append({"role": "user", "content": prompt})
     with st.chat_message("user"):
         st.markdown(prompt)
