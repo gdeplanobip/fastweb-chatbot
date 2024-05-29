@@ -132,13 +132,13 @@ for message in st.session_state.messages:
 logging.info('step 1')
 
 if st.session_state["input_disabled"]:
-prompt = st.chat_input(
-    "Scrivi..",
-    # disabled=st.session_state["input_disabled"],
-    on_submit=disable_input
-    )
-logging.info(f'prompt: {prompt}')
-st.session_state.messages.append({"role": "user", "content": prompt})
+    prompt = st.chat_input(
+        "Scrivi..",
+        # disabled=st.session_state["input_disabled"],
+        on_submit=disable_input
+        )
+    logging.info(f'prompt: {prompt}')
+    st.session_state.messages.append({"role": "user", "content": prompt})
 
 logging.info('step 2')
 
