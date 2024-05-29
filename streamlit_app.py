@@ -131,7 +131,7 @@ for message in st.session_state.messages:
 prompt = st.chat_input(
     "Scrivi..",
     disabled=st.session_state["input_disabled"],
-    on_submit=disable_input
+    # on_submit=disable_input
     )
 logging.info('Input KO')
 logging.info(f'prompt: {prompt}')
