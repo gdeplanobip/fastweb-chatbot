@@ -80,8 +80,8 @@ def dumb_response_generator(sentence):
         yield word + " "
         time.sleep(0.05)
 
-def disable_input():
-    st.session_state["input_disabled"] = True
+# def disable_input():
+#     st.session_state["input_disabled"] = True
 
 client = boto3.client("runtime.sagemaker", 
                         region_name= "eu-central-1",
@@ -175,7 +175,7 @@ if prompt := st.chat_input(
             response = st.write_stream(response_generator(stream))
         # st.session_state["input_disabled"] = False
 
-    st.session_state["input_disabled"] = False
+    # st.session_state["input_disabled"] = False
 
     st.session_state.messages.append({"role": "assistant", "content": response})
     st.session_state["history"].add(subject="AI", message=response)
