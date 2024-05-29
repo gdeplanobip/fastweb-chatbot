@@ -80,6 +80,8 @@ def dumb_response_generator(sentence):
         yield word + " "
         time.sleep(0.05)
 
+def disable_input():
+    st.session_state["input_disabled"] = True
 
 client = boto3.client("runtime.sagemaker", 
                         region_name= "eu-central-1",
@@ -119,6 +121,7 @@ logging.info(f'Modello scelto: {model}')
 
 if "history" not in st.session_state:
     st.session_state["history"] = History()
+    st.session_state["input_disabled"] = False
     logging.info('Inizializzazione storico conversazione')
 
 if "messages" not in st.session_state:
@@ -132,7 +135,10 @@ for message in st.session_state.messages:
         with st.chat_message(message["role"], avatar=BOT_LOGO_URL):
             st.markdown(message["content"])
 
-if prompt := st.chat_input("Scrivi.."):
+if prompt := st.chat_input(
+    "Scrivi..",
+    disabled=st.session_state["input_disabled"],
+    on_submit=disable_input):
     st.session_state.messages.append({"role": "user", "content": prompt})
     with st.chat_message("user"):
         st.markdown(prompt)
@@ -156,12 +162,14 @@ if prompt := st.chat_input("Scrivi.."):
     
     elif model == 'Llama':
         with st.chat_message("assistant", avatar=BOT_LOGO_URL):
+            st.session_state["input_disabled"] = True
             stream = client.invoke_endpoint_with_response_stream(
                 EndpointName="llm-nazionale-llama-demo29052024-v3",
                 Body=json.dumps(payload),
                 ContentType="application/json")
         
             response = st.write_stream(response_generator(stream))
+            st.session_state["input_disabled"] = False
 
     st.session_state.messages.append({"role": "assistant", "content": response})
     st.session_state["history"].add(subject="AI", message=response)
