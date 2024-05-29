@@ -136,7 +136,7 @@ prompt = st.chat_input(
 logging.info('Input KO')
 st.session_state.messages.append({"role": "user", "content": prompt})
 
-if prompt != "Scrivi..":
+if prompt:
     with st.chat_message("user"):
         st.markdown(prompt)
         st.session_state["history"].add(subject="Umano", message=prompt)
