@@ -126,9 +126,9 @@ for message in st.session_state.messages:
         with st.chat_message(message["role"], avatar=BOT_LOGO_URL):
             st.markdown(message["content"])
 
-prompt = st.chat_input("Ask a question")
+prompt = st.chat_input("Ask a question", key="fake")
 if prompt:
-    st.chat_input("Ask a question", disabled=st.session_state["input_disabled"],
+    st.chat_input("Ask a question", key="real", disabled=st.session_state["input_disabled"],
         on_submit=disable_input)
     # st.chat_input(
     #     "Scrivi..",
