@@ -153,12 +153,12 @@ if prompt := st.chat_input(
 
     if model == 'Mistral':
         with st.chat_message("assistant", avatar=BOT_LOGO_URL):
-            st.session_state["input_disabled"] = True
+            # st.session_state["input_disabled"] = True
             stream = client.invoke_endpoint_with_response_stream(
                 EndpointName="llm-nazionale-mistral-demo29052024",
                 Body=json.dumps(payload),
                 ContentType="application/json")
-            st.session_state["input_disabled"] = False
+            # st.session_state["input_disabled"] = False
         
         response = st.write_stream(response_generator(stream))
     
