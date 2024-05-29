@@ -134,12 +134,12 @@ prompt = st.chat_input(
     disabled=st.session_state["input_disabled"],
     # on_submit=disable_input
     )
-st.session_state["input_disabled"] = True
-logging.info('Input KO')
 logging.info(f'prompt: {prompt}')
 st.session_state.messages.append({"role": "user", "content": prompt})
 
 if prompt:
+    st.session_state["input_disabled"] = True
+    logging.info('Input KO, per if prompt')
     logging.info(f'prompt: {prompt}')
     with st.chat_message("user"):
         st.markdown(prompt)
