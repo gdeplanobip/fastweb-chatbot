@@ -90,7 +90,7 @@ client = boto3.client("runtime.sagemaker",
 with st.sidebar:
     st.image(LOGO_URL)
     st.title(':orange[_Enea_]')
-    st.markdown("<h1 style='text-align: center; color: red;'>Some title</h1>", unsafe_allow_html=True)
+    st.markdown("<h1 style='text-align: center; color: orange;'>_Enea_</h1>", unsafe_allow_html=True)
 
     
     st.divider()
