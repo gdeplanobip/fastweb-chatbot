@@ -133,7 +133,7 @@ logging.info('step 1')
 
 prompt = st.chat_input(
     "Scrivi..",
-    disabled=st.session_state["input_disabled"],
+    # disabled=st.session_state["input_disabled"],
     on_submit=disable_input
     )
 logging.info(f'prompt: {prompt}')
