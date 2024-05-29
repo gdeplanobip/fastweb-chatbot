@@ -136,7 +136,7 @@ if prompt:
     #     disabled=st.session_state["input_disabled"],
     #     on_submit=disable_input
     #     )
-if prompt != "":
+# if prompt != "":
     logging.info('Input KO')
     st.session_state.messages.append({"role": "user", "content": prompt})
     with st.chat_message("user"):
