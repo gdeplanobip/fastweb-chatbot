@@ -158,9 +158,10 @@ if prompt := st.chat_input(
                 EndpointName="llm-nazionale-mistral-demo29052024",
                 Body=json.dumps(payload),
                 ContentType="application/json")
-            # st.session_state["input_disabled"] = False
+            
         
         response = st.write_stream(response_generator(stream))
+        st.session_state["input_disabled"] = False
     
     elif model == 'Llama':
         with st.chat_message("assistant", avatar=BOT_LOGO_URL):
