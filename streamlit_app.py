@@ -35,7 +35,8 @@ SKIPWORD_SEQ_1 = ['\n', '[', '|', 'AI', '|', ']']
 SKIPWORD_SEQ_2 = ['\n', ' [', '|', 'AI', '|', ']']
 
 LOGO_URL = "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Fastweb_logo.svg/2560px-Fastweb_logo.svg.png"
-BOT_LOGO_URL = ("https://play-lh.googleusercontent.com/1SYd62lmDg6gita4ZZe8mVfVbGGKNHwEtKCVNHQv9LgQ_311tPv9dpmmWS8ZM3uxlrPY")
+# BOT_LOGO_URL = ("https://play-lh.googleusercontent.com/1SYd62lmDg6gita4ZZe8mVfVbGGKNHwEtKCVNHQv9LgQ_311tPv9dpmmWS8ZM3uxlrPY")
+BOT_LOGO_URL = "https://www.fastweb.it/myfastweb/gfx/common/app-icon-2023@2x.png"
 
 
 class History:
