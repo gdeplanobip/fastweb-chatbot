@@ -158,7 +158,7 @@ if prompt := st.chat_input(
                 Body=json.dumps(payload),
                 ContentType="application/json")
         
-            response = st.write_stream(response_generator(stream))
+        response = st.write_stream(response_generator(stream))
     
     elif model == 'Llama':
         with st.chat_message("assistant", avatar=BOT_LOGO_URL):
@@ -169,7 +169,7 @@ if prompt := st.chat_input(
                 ContentType="application/json")
         
             response = st.write_stream(response_generator(stream))
-            st.session_state["input_disabled"] = False
+        st.session_state["input_disabled"] = False
 
     st.session_state.messages.append({"role": "assistant", "content": response})
     st.session_state["history"].add(subject="AI", message=response)
