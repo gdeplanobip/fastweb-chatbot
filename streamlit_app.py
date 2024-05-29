@@ -131,6 +131,7 @@ for message in st.session_state.messages:
 
 logging.info('step 1')
 
+prompt = None
 if st.session_state["input_disabled"]:
     prompt = st.chat_input(
         "Scrivi..",
