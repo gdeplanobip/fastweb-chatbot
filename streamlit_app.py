@@ -82,6 +82,7 @@ def dumb_response_generator(sentence):
 
 def disable_input():
     st.session_state["input_disabled"] = True
+    logging.info('Input KO, per disable_input()')
 
 client = boto3.client("runtime.sagemaker", 
                         region_name= "eu-central-1",
@@ -133,6 +134,7 @@ prompt = st.chat_input(
     disabled=st.session_state["input_disabled"],
     # on_submit=disable_input
     )
+st.session_state["input_disabled"] = True
 logging.info('Input KO')
 logging.info(f'prompt: {prompt}')
 st.session_state.messages.append({"role": "user", "content": prompt})
