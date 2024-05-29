@@ -131,11 +131,11 @@ prompt = st.chat_input("Ask a question",
     on_submit=disable_input)
 if prompt:
 #     st.chat_input("Ask a question", key="disabled_chat_input", disabled=True)
-st.chat_input(
-    "Scrivi..",
-    disabled=st.session_state["input_disabled"],
-    on_submit=disable_input
-    )
+    st.chat_input(
+        "Scrivi..",
+        disabled=st.session_state["input_disabled"],
+        on_submit=disable_input
+        )
 # if prompt != "Scrivi..":
     logging.info('Input KO')
     st.session_state.messages.append({"role": "user", "content": prompt})
