@@ -154,28 +154,20 @@ if prompt := st.chat_input(
 
     if model == 'Mistral':
         with st.chat_message("assistant", avatar=BOT_LOGO_URL):
-            # st.session_state["input_disabled"] = True
             stream = client.invoke_endpoint_with_response_stream(
                 EndpointName="llm-nazionale-mistral-demo29052024",
                 Body=json.dumps(payload),
-                ContentType="application/json")
-            
-        
-        response = st.write_stream(response_generator(stream))
-        # st.session_state["input_disabled"] = False
-    
+                ContentType="application/json")              
+            response = st.write_stream(response_generator(stream))
+
     elif model == 'Llama':
         with st.chat_message("assistant", avatar=BOT_LOGO_URL):
-            # st.session_state["input_disabled"] = True
             stream = client.invoke_endpoint_with_response_stream(
                 EndpointName="llm-nazionale-llama-demo29052024-v3",
                 Body=json.dumps(payload),
                 ContentType="application/json")
-        
             response = st.write_stream(response_generator(stream))
-        # st.session_state["input_disabled"] = False
 
-    # st.session_state["input_disabled"] = False
 
     st.session_state.messages.append({"role": "assistant", "content": response})
     st.session_state["history"].add(subject="AI", message=response)
