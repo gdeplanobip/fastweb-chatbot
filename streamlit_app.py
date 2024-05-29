@@ -126,11 +126,12 @@ for message in st.session_state.messages:
         with st.chat_message(message["role"], avatar=BOT_LOGO_URL):
             st.markdown(message["content"])
 
-if prompt := st.chat_input(
+st.chat_input(
     "Scrivi..",
     disabled=st.session_state["input_disabled"],
     on_submit=disable_input
-    ):
+    )
+if prompt != "Scrivi..":
     logging.info('Input KO')
     st.session_state.messages.append({"role": "user", "content": prompt})
     with st.chat_message("user"):
