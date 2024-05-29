@@ -179,4 +179,4 @@ if prompt:
     print("------ OUTPUT --------")
     print(st.session_state["history"].format())
     print()
-prompt = ""
+prompt = None
