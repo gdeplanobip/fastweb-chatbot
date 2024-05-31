@@ -203,7 +203,8 @@ with input_container:
         disabled=st.session_state["input_disabled"],
         on_submit=disable_input,
         key = "real")
-    logging.info(f'prompt: {st.session_state.get("real")}')
-    st.session_state.messages.append({"role": "user", "content": st.session_state.get("real")})
+    if st.session_state.get("real"):
+        logging.info(f'prompt: {st.session_state.get("real")}')
+        st.session_state.messages.append({"role": "user", "content": st.session_state.get("real")})
 
 logging.info(f'message: {st.session_state.messages}')
