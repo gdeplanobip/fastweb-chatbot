@@ -198,13 +198,13 @@ logging.info('step 8')
 logging.info(f"{st.session_state['history'].format()}")
 
 with input_container:
-    input_placeholder.chat_input(
+    cane = input_placeholder.chat_input(
         "Scrivi..",
         disabled=st.session_state["input_disabled"],
         on_submit=disable_input,
         key = "real")
-    if st.session_state.get("real"):
-        logging.info(f'prompt: {st.session_state.get("real")}')
-        st.session_state.messages.append({"role": "user", "content": st.session_state.get("real")})
+    # if st.session_state.get("real"):
+    logging.info(f'prompt: {st.session_state.get("real")}')
+    st.session_state.messages.append({"role": "user", "content": cane})
 
 logging.info(f'message: {st.session_state.messages}')
