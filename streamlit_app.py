@@ -127,6 +127,7 @@ logging.info('step 1')
 
 
 with input_container:
+    history = st.container(height=400)
     input_placeholder = st.empty()
     input_placeholder.chat_input(
         "Scrivi..",
