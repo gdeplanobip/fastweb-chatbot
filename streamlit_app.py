@@ -132,6 +132,17 @@ colored_header(label="", description="", color_name="blue-70")
 input_container = st.container()
 logging.info('step 1')
 
+with response_container:
+
+    for message in st.session_state.messages:
+        if message["role"] == "user":
+            with st.chat_message(message["role"]):
+                st.markdown(message["content"])
+        else:
+            with st.chat_message(message["role"], avatar=BOT_LOGO_URL):
+                st.markdown(message["content"])
+
+
 with input_container:
     input_placeholder = st.empty()
     input_placeholder.chat_input(
@@ -146,13 +157,13 @@ logging.info('step 2')
 
 with response_container:
 
-    for message in st.session_state.messages:
-        if message["role"] == "user":
-            with st.chat_message(message["role"]):
-                st.markdown(message["content"])
-        else:
-            with st.chat_message(message["role"], avatar=BOT_LOGO_URL):
-                st.markdown(message["content"])
+    # for message in st.session_state.messages:
+    #     if message["role"] == "user":
+    #         with st.chat_message(message["role"]):
+    #             st.markdown(message["content"])
+    #     else:
+    #         with st.chat_message(message["role"], avatar=BOT_LOGO_URL):
+    #             st.markdown(message["content"])
     
     if st.session_state.get("real"):
         st.session_state["input_disabled"] = True
