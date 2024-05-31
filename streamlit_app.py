@@ -143,7 +143,7 @@ with input_container:
         on_submit=disable_input,
         key = "fake")
 # logging.info(f'prompt: {prompt}')
-st.session_state.messages.append({"role": "user", "content": "test"})
+# st.session_state.messages.append({"role": "user", "content": "test"})
 
 logging.info('step 2')
 
@@ -206,4 +206,4 @@ with input_container:
     logging.info(f'prompt: {st.session_state.get("real")}')
     st.session_state.messages.append({"role": "user", "content": st.session_state.get("real")})
 
-logging.info(f'message: {st.session_state.get("real")}')
+logging.info(f'message: {st.session_state.messages}')
