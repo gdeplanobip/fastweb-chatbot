@@ -155,78 +155,78 @@ with input_container:
 
 # logging.info('step 2')
 
-# with response_container:
+with response_container:
 
-#     for message in st.session_state.messages:
-#         if message["role"] == "user":
-#             with st.chat_message(message["role"]):
-#                 st.markdown(message["content"])
-#         else:
-#             with st.chat_message(message["role"], avatar=BOT_LOGO_URL):
-#                 st.markdown(message["content"])
+    for message in st.session_state.messages:
+        if message["role"] == "user":
+            with st.chat_message(message["role"]):
+                st.markdown(message["content"])
+        else:
+            with st.chat_message(message["role"], avatar=BOT_LOGO_URL):
+                st.markdown(message["content"])
     
-#     if st.session_state.get("real"):
-#         st.session_state["input_disabled"] = True
-#         logging.info('Input KO, per if prompt')
-#         logging.info('step 3')
-#         with st.chat_message("user"):
-#             st.markdown(st.session_state.get("real"))
-#             st.session_state.messages.append({"role": "user", "content": st.session_state.get("real")})
-#             st.session_state["history"].add(subject="Umano", message=st.session_state.get("real"))
-#             message = st.session_state["history"].format()
-#         logging.info('step 4')
-#         payload = {
-#             "inputs": message,
-#             "parameters": {"max_new_tokens": 256, "stop":["[|Umano|]"]},
-#             "stream": True
-#             }
-#         logging.info('step 5')
-#         if model == 'Mistral':
-#             with st.chat_message("assistant", avatar=BOT_LOGO_URL):
-#                 stream = client.invoke_endpoint_with_response_stream(
-#                     EndpointName="llm-nazionale-mistral-demo31052024",
-#                     Body=json.dumps(payload),
-#                     ContentType="application/json")              
-#                 response = st.write_stream(response_generator(stream))
-#                 st.session_state["input_disabled"] = False
-#                 logging.info('Input OK')
+    if st.session_state.get("real"):
+        st.session_state["input_disabled"] = True
+        logging.info('Input KO, per if prompt')
+        logging.info('step 3')
+        with st.chat_message("user"):
+            st.markdown(st.session_state.get("real"))
+            st.session_state.messages.append({"role": "user", "content": st.session_state.get("real")})
+            st.session_state["history"].add(subject="Umano", message=st.session_state.get("real"))
+            message = st.session_state["history"].format()
+        logging.info('step 4')
+        payload = {
+            "inputs": message,
+            "parameters": {"max_new_tokens": 256, "stop":["[|Umano|]"]},
+            "stream": True
+            }
+        logging.info('step 5')
+        if model == 'Mistral':
+            with st.chat_message("assistant", avatar=BOT_LOGO_URL):
+                stream = client.invoke_endpoint_with_response_stream(
+                    EndpointName="llm-nazionale-mistral-demo31052024",
+                    Body=json.dumps(payload),
+                    ContentType="application/json")              
+                response = st.write_stream(response_generator(stream))
+                st.session_state["input_disabled"] = False
+                logging.info('Input OK')
     
-#         elif model == 'Llama':
-#             pass
-#             # with st.chat_message("assistant", avatar=BOT_LOGO_URL):
-#             #     stream = client.invoke_endpoint_with_response_stream(
-#             #         EndpointName="llm-nazionale-llama-demo29052024-v3",
-#             #         Body=json.dumps(payload),
-#             #         ContentType="application/json")
-#             #     response = st.write_stream(response_generator(stream))
-#             #     st.session_state["input_disabled"] = False
-#             #     logging.info('Input OK')
-#         logging.info('step 6')
-#         logging.info('pre add ai mess')
-#         st.session_state.messages.append({"role": "assistant", "content": response})
-#         logging.info('post add ai mess')
-#         st.session_state["history"].add(subject="AI", message=response)
-#         # st.session_state["input_disabled"] = False
-#         # logging.info('Input OK')
-#         print("------ OUTPUT --------")
-#         print(st.session_state["history"].format())
-#         print()
-#         logging.info('step 7')
-# # prompt = None
-# logging.info('step 8')
-# logging.info(f"{st.session_state['history'].format()}")
+        elif model == 'Llama':
+            pass
+            # with st.chat_message("assistant", avatar=BOT_LOGO_URL):
+            #     stream = client.invoke_endpoint_with_response_stream(
+            #         EndpointName="llm-nazionale-llama-demo29052024-v3",
+            #         Body=json.dumps(payload),
+            #         ContentType="application/json")
+            #     response = st.write_stream(response_generator(stream))
+            #     st.session_state["input_disabled"] = False
+            #     logging.info('Input OK')
+        logging.info('step 6')
+        logging.info('pre add ai mess')
+        st.session_state.messages.append({"role": "assistant", "content": response})
+        logging.info('post add ai mess')
+        st.session_state["history"].add(subject="AI", message=response)
+        # st.session_state["input_disabled"] = False
+        # logging.info('Input OK')
+        print("------ OUTPUT --------")
+        print(st.session_state["history"].format())
+        print()
+        logging.info('step 7')
+# prompt = None
+logging.info('step 8')
+logging.info(f"{st.session_state['history'].format()}")
 
-# with input_container:
-#     input_placeholder.chat_input(
-#         "Scrivi..",
-#         disabled=st.session_state["input_disabled"],
-#         on_submit=disable_input,
-#         key = "real")
-#     if st.session_state.get("real"):
-#         logging.info(f'prompt: {st.session_state.get("real")}')
-#         logging.info('pre add user mess')
-#         # st.session_state.messages.append({"role": "user", "content": st.session_state.get("real")})
-#         logging.info('post add user mess')
-#         logging.info(f'message: {st.session_state.messages}')
+with input_container:
+    input_placeholder.chat_input(
+        "Scrivi..",
+        disabled=st.session_state["input_disabled"],
+        on_submit=disable_input,
+        key = "real")
+    if st.session_state.get("real"):
+        logging.info(f'prompt: {st.session_state.get("real")}')
+        logging.info('pre add user mess')
+        # st.session_state.messages.append({"role": "user", "content": st.session_state.get("real")})
+        logging.info('post add user mess')
+        logging.info(f'message: {st.session_state.messages}')
 
 
