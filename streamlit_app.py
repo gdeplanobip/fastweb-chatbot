@@ -146,7 +146,7 @@ logging.info('step 1')
 
 with input_placeholder:
     # input_placeholder = st.empty()
-    st.chat_input(
+    input_placeholder.chat_input(
         "Scrivi..",
         max_chars=100,
         disabled=st.session_state["input_disabled"],
@@ -219,7 +219,7 @@ logging.info('step 8')
 logging.info(f"{st.session_state['history'].format()}")
 
 with input_placeholder:
-    st.chat_input(
+    input_placeholder.chat_input(
         "Scrivi..",
         max_chars=100,
         disabled=st.session_state["input_disabled"],
