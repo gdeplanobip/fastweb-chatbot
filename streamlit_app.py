@@ -123,13 +123,13 @@ if "input_disabled" not in st.session_state:
 if "messages" not in st.session_state:
     st.session_state.messages = []
 
-for message in st.session_state.messages:
-    if message["role"] == "user":
-        with st.chat_message(message["role"]):
-            st.markdown(message["content"])
-    else:
-        with st.chat_message(message["role"], avatar=BOT_LOGO_URL):
-            st.markdown(message["content"])
+# for message in st.session_state.messages:
+#     if message["role"] == "user":
+#         with st.chat_message(message["role"]):
+#             st.markdown(message["content"])
+#     else:
+#         with st.chat_message(message["role"], avatar=BOT_LOGO_URL):
+#             st.markdown(message["content"])
 
 response_container = st.container()
 input_container = st.container()
