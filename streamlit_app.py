@@ -38,9 +38,7 @@ SKIPWORD_SEQ_1 = ['\n', '[', '|', 'AI', '|', ']']
 SKIPWORD_SEQ_2 = ['\n', ' [', '|', 'AI', '|', ']']
 
 LOGO_URL = "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Fastweb_logo.svg/2560px-Fastweb_logo.svg.png"
-# BOT_LOGO_URL = ("https://play-lh.googleusercontent.com/1SYd62lmDg6gita4ZZe8mVfVbGGKNHwEtKCVNHQv9LgQ_311tPv9dpmmWS8ZM3uxlrPY")
 BOT_LOGO_URL = "https://www.fastweb.it/myfastweb/gfx/common/app-icon-2023@2x.png"
-
 
 class History:
     def __init__(self):
@@ -77,11 +75,6 @@ def response_generator(a):
                 yield token_return
         except:
             pass
-
-def dumb_response_generator(sentence):
-    for word in sentence.split():
-        yield word + " "
-        time.sleep(0.05)
 
 def disable_input():
     st.session_state["input_disabled"] = True
@@ -125,22 +118,12 @@ if "messages" not in st.session_state:
     st.session_state.messages = []
 
 
-
+# LAYOUT 
 
 response_container = st.container()
 colored_header(label="", description="", color_name="blue-70")
 input_container = st.container()
 logging.info('step 1')
-
-# with response_container:
-
-#     for message in st.session_state.messages:
-#         if message["role"] == "user":
-#             with st.chat_message(message["role"]):
-#                 st.markdown(message["content"])
-#         else:
-#             with st.chat_message(message["role"], avatar=BOT_LOGO_URL):
-#                 st.markdown(message["content"])
 
 
 with input_container:
@@ -218,6 +201,7 @@ logging.info('step 8')
 logging.info(f"{st.session_state['history'].format()}")
 
 with input_container:
+    history = st.container(height=400)
     input_placeholder.chat_input(
         "Scrivi..",
         max_chars=100,
