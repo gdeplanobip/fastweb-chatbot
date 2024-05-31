@@ -123,13 +123,13 @@ if "input_disabled" not in st.session_state:
 if "messages" not in st.session_state:
     st.session_state.messages = []
 
-# for message in st.session_state.messages:
-#     if message["role"] == "user":
-#         with st.chat_message(message["role"]):
-#             st.markdown(message["content"])
-#     else:
-#         with st.chat_message(message["role"], avatar=BOT_LOGO_URL):
-#             st.markdown(message["content"])
+for message in st.session_state.messages:
+    if message["role"] == "user":
+        with st.(message["role"]):
+            st.markdown(message["content"])
+    else:
+        with st.(message["role"], avatar=BOT_LOGO_URL):
+            st.markdown(message["content"])
 
 response_container = st.container()
 input_container = st.container()
@@ -152,10 +152,10 @@ with response_container:
         # st.session_state["input_disabled"] = True
         # logging.info('Input KO, per if prompt')
         logging.info('step 3')
-        with st.chat_message("user"):
-            st.markdown(st.session_state.get("real"))
-            st.session_state["history"].add(subject="Umano", message=st.session_state.get("real"))
-            message = st.session_state["history"].format()
+        # with st.chat_message("user"):
+            # st.markdown(st.session_state.get("real"))
+        st.session_state["history"].add(subject="Umano", message=st.session_state.get("real"))
+        message = st.session_state["history"].format()
         logging.info('step 4')
         payload = {
             "inputs": message,
@@ -174,14 +174,14 @@ with response_container:
                 logging.info('Input OK')
     
         elif model == 'Llama':
-            with st.chat_message("assistant", avatar=BOT_LOGO_URL):
-                stream = client.invoke_endpoint_with_response_stream(
-                    EndpointName="llm-nazionale-llama-demo29052024-v3",
-                    Body=json.dumps(payload),
-                    ContentType="application/json")
-                response = st.write_stream(response_generator(stream))
-                st.session_state["input_disabled"] = False
-                logging.info('Input OK')
+            # with st.chat_message("assistant", avatar=BOT_LOGO_URL):
+            #     stream = client.invoke_endpoint_with_response_stream(
+            #         EndpointName="llm-nazionale-llama-demo29052024-v3",
+            #         Body=json.dumps(payload),
+            #         ContentType="application/json")
+            #     response = st.write_stream(response_generator(stream))
+            #     st.session_state["input_disabled"] = False
+            #     logging.info('Input OK')
         logging.info('step 6')
     
         st.session_state.messages.append({"role": "assistant", "content": response})
