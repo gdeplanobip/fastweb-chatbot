@@ -190,3 +190,5 @@ if prompt:
 # prompt = None
 logging.info('step 8')
 logging.info(f"{st.session_state['history'].format()}")
+
+st.button("go on")
