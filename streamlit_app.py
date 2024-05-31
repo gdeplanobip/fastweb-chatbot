@@ -131,6 +131,7 @@ for message in st.session_state.messages:
         with st.chat_message(message["role"], avatar=BOT_LOGO_URL):
             st.markdown(message["content"])
 
+response_container = st.container()
 input_container = st.container()
 logging.info('step 1')
 
@@ -146,50 +147,51 @@ with input_container:
 
 logging.info('step 2')
 
-if st.session_state.get("real"):
-    # st.session_state["input_disabled"] = True
-    # logging.info('Input KO, per if prompt')
-    logging.info('step 3')
-    with st.chat_message("user"):
-        st.markdown(st.session_state.get("real"))
-        st.session_state["history"].add(subject="Umano", message=st.session_state.get("real"))
-        message = st.session_state["history"].format()
-    logging.info('step 4')
-    payload = {
-        "inputs": message,
-        "parameters": {"max_new_tokens": 256, "stop":["[|Umano|]"]},
-        "stream": True
-        }
-    logging.info('step 5')
-    if model == 'Mistral':
-        with st.chat_message("assistant", avatar=BOT_LOGO_URL):
-            stream = client.invoke_endpoint_with_response_stream(
-                EndpointName="llm-nazionale-mistral-demo31052024",
-                Body=json.dumps(payload),
-                ContentType="application/json")              
-            response = st.write_stream(response_generator(stream))
-            st.session_state["input_disabled"] = False
-            logging.info('Input OK')
-
-    elif model == 'Llama':
-        with st.chat_message("assistant", avatar=BOT_LOGO_URL):
-            stream = client.invoke_endpoint_with_response_stream(
-                EndpointName="llm-nazionale-llama-demo29052024-v3",
-                Body=json.dumps(payload),
-                ContentType="application/json")
-            response = st.write_stream(response_generator(stream))
-            st.session_state["input_disabled"] = False
-            logging.info('Input OK')
-    logging.info('step 6')
-
-    st.session_state.messages.append({"role": "assistant", "content": response})
-    st.session_state["history"].add(subject="AI", message=response)
-    # st.session_state["input_disabled"] = False
-    # logging.info('Input OK')
-    print("------ OUTPUT --------")
-    print(st.session_state["history"].format())
-    print()
-    logging.info('step 7')
+with response_container:
+    if st.session_state.get("real"):
+        # st.session_state["input_disabled"] = True
+        # logging.info('Input KO, per if prompt')
+        logging.info('step 3')
+        with st.chat_message("user"):
+            st.markdown(st.session_state.get("real"))
+            st.session_state["history"].add(subject="Umano", message=st.session_state.get("real"))
+            message = st.session_state["history"].format()
+        logging.info('step 4')
+        payload = {
+            "inputs": message,
+            "parameters": {"max_new_tokens": 256, "stop":["[|Umano|]"]},
+            "stream": True
+            }
+        logging.info('step 5')
+        if model == 'Mistral':
+            with st.chat_message("assistant", avatar=BOT_LOGO_URL):
+                stream = client.invoke_endpoint_with_response_stream(
+                    EndpointName="llm-nazionale-mistral-demo31052024",
+                    Body=json.dumps(payload),
+                    ContentType="application/json")              
+                response = st.write_stream(response_generator(stream))
+                st.session_state["input_disabled"] = False
+                logging.info('Input OK')
+    
+        elif model == 'Llama':
+            with st.chat_message("assistant", avatar=BOT_LOGO_URL):
+                stream = client.invoke_endpoint_with_response_stream(
+                    EndpointName="llm-nazionale-llama-demo29052024-v3",
+                    Body=json.dumps(payload),
+                    ContentType="application/json")
+                response = st.write_stream(response_generator(stream))
+                st.session_state["input_disabled"] = False
+                logging.info('Input OK')
+        logging.info('step 6')
+    
+        st.session_state.messages.append({"role": "assistant", "content": response})
+        st.session_state["history"].add(subject="AI", message=response)
+        # st.session_state["input_disabled"] = False
+        # logging.info('Input OK')
+        print("------ OUTPUT --------")
+        print(st.session_state["history"].format())
+        print()
+        logging.info('step 7')
 # prompt = None
 logging.info('step 8')
 logging.info(f"{st.session_state['history'].format()}")
