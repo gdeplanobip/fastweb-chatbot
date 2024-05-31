@@ -161,7 +161,7 @@ if prompt:
     if model == 'Mistral':
         with st.chat_message("assistant", avatar=BOT_LOGO_URL):
             stream = client.invoke_endpoint_with_response_stream(
-                EndpointName="llm-nazionale-mistral-demo29052024",
+                EndpointName="llm-nazionale-mistral-demo31052024",
                 Body=json.dumps(payload),
                 ContentType="application/json")              
             response = st.write_stream(response_generator(stream))
