@@ -123,7 +123,7 @@ if "input_disabled" not in st.session_state:
 if "messages" not in st.session_state:
     st.session_state.messages = []
 
-for message in st.session_state.messages[:-2]:
+for message in st.session_state.messages:
     if message["role"] == "user":
         with st.chat_message(message["role"]):
             st.markdown(message["content"])
@@ -143,7 +143,7 @@ with input_container:
         on_submit=disable_input,
         key = "fake")
 # logging.info(f'prompt: {prompt}')
-# st.session_state.messages.append({"role": "user", "content": prompt})
+st.session_state.messages.append({"role": "user", "content": "test"})
 
 logging.info('step 2')
 
@@ -203,5 +203,7 @@ with input_container:
         disabled=st.session_state["input_disabled"],
         on_submit=disable_input,
         key = "real")
-logging.info(f'prompt: {st.session_state.get("real")}')
-st.session_state.messages.append({"role": "user", "content": st.session_state.get("real")})
+    logging.info(f'prompt: {st.session_state.get("real")}')
+    st.session_state.messages.append({"role": "user", "content": st.session_state.get("real")})
+
+logging.info(f'message: {st.session_state.get("real")}')
