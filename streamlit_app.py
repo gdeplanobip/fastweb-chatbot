@@ -125,10 +125,10 @@ if "messages" not in st.session_state:
 
 for message in st.session_state.messages:
     if message["role"] == "user":
-        with st.(message["role"]):
+        with st.chat_message(message["role"]):
             st.markdown(message["content"])
     else:
-        with st.(message["role"], avatar=BOT_LOGO_URL):
+        with st.chat_message(message["role"], avatar=BOT_LOGO_URL):
             st.markdown(message["content"])
 
 response_container = st.container()
