@@ -217,7 +217,7 @@ logging.info('step 8')
 logging.info(f"{st.session_state['history'].format()}")
 
 with input_container:
-    input_placeholder.chat_input(
+    st.chat_input(
         "Scrivi..",
         disabled=st.session_state["input_disabled"],
         on_submit=disable_input,
