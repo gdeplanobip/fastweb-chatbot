@@ -147,6 +147,7 @@ with input_container:
     input_placeholder = st.empty()
     input_placeholder.chat_input(
         "Scrivi..",
+        max_chars=100,
         disabled=st.session_state["input_disabled"],
         on_submit=disable_input,
         key = "fake")
@@ -217,8 +218,9 @@ logging.info('step 8')
 logging.info(f"{st.session_state['history'].format()}")
 
 with input_container:
-    st.chat_input(
+    input_placeholder.chat_input(
         "Scrivi..",
+        max_chars=100,
         disabled=st.session_state["input_disabled"],
         on_submit=disable_input,
         key = "real")
