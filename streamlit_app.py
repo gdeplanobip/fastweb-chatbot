@@ -13,6 +13,7 @@ import logging
 import time
 
 from streamlit_extras.add_vertical_space import add_vertical_space
+from streamlit_extras.colored_header import colored_header
 
 logging.basicConfig()
 logging.getLogger().setLevel(logging.INFO)
@@ -127,6 +128,7 @@ if "messages" not in st.session_state:
 
 
 response_container = st.container()
+colored_header(label="", description="", color_name="blue-70")
 input_container = st.container()
 logging.info('step 1')
 
