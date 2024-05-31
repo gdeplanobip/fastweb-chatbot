@@ -127,7 +127,6 @@ logging.info('step 1')
 
 
 with input_container:
-    history = st.container(height=400)
     input_placeholder = st.empty()
     input_placeholder.chat_input(
         "Scrivi..",
@@ -202,7 +201,6 @@ logging.info('step 8')
 logging.info(f"{st.session_state['history'].format()}")
 
 with input_container:
-    history = st.container(height=400)
     input_placeholder.chat_input(
         "Scrivi..",
         max_chars=100,
