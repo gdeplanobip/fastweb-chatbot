@@ -133,17 +133,17 @@ for message in st.session_state.messages:
 
 logging.info('step 1')
 
-prompt = st.chat_input(
+st.chat_input(
     "Scrivi..",
     disabled=st.session_state["input_disabled"],
     on_submit=disable_input
-    )
-logging.info(f'prompt: {prompt}')
-st.session_state.messages.append({"role": "user", "content": prompt})
+    key = "fake")
+# logging.info(f'prompt: {prompt}')
+# st.session_state.messages.append({"role": "user", "content": prompt})
 
 logging.info('step 2')
 
-if prompt:
+if st.session_state.get("real"):
     # st.session_state["input_disabled"] = True
     # logging.info('Input KO, per if prompt')
     logging.info('step 3')
@@ -191,4 +191,18 @@ if prompt:
 logging.info('step 8')
 logging.info(f"{st.session_state['history'].format()}")
 
-st.button("go on")
+prompt = st.chat_input(
+    "Scrivi..",
+    disabled=st.session_state["input_disabled"],
+    on_submit=disable_input
+    )
+logging.info(f'prompt: {prompt}')
+st.session_state.messages.append({"role": "user", "content": prompt})
+
+st.chat_input(
+    "Scrivi..",
+    disabled=st.session_state["input_disabled"],
+    on_submit=disable_input
+    key = "real")
+logging.info(f'prompt: {prompt}')
+st.session_state.messages.append({"role": "user", "content": prompt})
