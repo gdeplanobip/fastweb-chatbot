@@ -216,7 +216,7 @@ with response_container:
 logging.info('step 8')
 logging.info(f"{st.session_state['history'].format()}")
 
-with :
+with input_container:
     input_placeholder.chat_input(
         "Scrivi..",
         disabled=st.session_state["input_disabled"],
