@@ -160,17 +160,17 @@ with response_container:
     for message in st.session_state.messages:
         if message["role"] == "user":
             with st.chat_message(message["role"]):
-                st.markdown(message["content"])
+                st.write(message["content"])
         else:
             with st.chat_message(message["role"], avatar=BOT_LOGO_URL):
-                st.markdown(message["content"])
+                st.write(message["content"])
     
     if st.session_state.get("real"):
         st.session_state["input_disabled"] = True
         logging.info('Input KO, per if prompt')
         logging.info('step 3')
         with st.chat_message("user"):
-            st.markdown(st.session_state.get("real"))
+            st.write(st.session_state.get("real"))
             st.session_state.messages.append({"role": "user", "content": st.session_state.get("real")})
             st.session_state["history"].add(subject="Umano", message=st.session_state.get("real"))
             message = st.session_state["history"].format()
@@ -216,7 +216,7 @@ with response_container:
 logging.info('step 8')
 logging.info(f"{st.session_state['history'].format()}")
 
-with input_container:
+with :
     input_placeholder.chat_input(
         "Scrivi..",
         disabled=st.session_state["input_disabled"],
