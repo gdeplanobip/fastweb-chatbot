@@ -131,13 +131,16 @@ for message in st.session_state.messages:
         with st.chat_message(message["role"], avatar=BOT_LOGO_URL):
             st.markdown(message["content"])
 
+input_container = st.container()
 logging.info('step 1')
 
-st.chat_input(
-    "Scrivi..",
-    disabled=st.session_state["input_disabled"],
-    on_submit=disable_input,
-    key = "fake")
+with input_container:
+    input_placeholder = st.empty()
+    input_placeholder.st.chat_input(
+        "Scrivi..",
+        disabled=st.session_state["input_disabled"],
+        on_submit=disable_input,
+        key = "fake")
 # logging.info(f'prompt: {prompt}')
 # st.session_state.messages.append({"role": "user", "content": prompt})
 
@@ -191,10 +194,11 @@ if st.session_state.get("real"):
 logging.info('step 8')
 logging.info(f"{st.session_state['history'].format()}")
 
-st.chat_input(
-    "Scrivi..",
-    disabled=st.session_state["input_disabled"],
-    on_submit=disable_input,
-    key = "real")
+with input_container:
+    input_placeholder.st.chat_input(
+        "Scrivi..",
+        disabled=st.session_state["input_disabled"],
+        on_submit=disable_input,
+        key = "real")
 logging.info(f'prompt: {st.session_state.get("real")}')
 st.session_state.messages.append({"role": "user", "content": st.session_state.get("real")})
