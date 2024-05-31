@@ -229,4 +229,15 @@ with input_container:
         logging.info('post add user mess')
         logging.info(f'message: {st.session_state.messages}')
 
-
+# with input_container:
+input_placeholder.chat_input(
+    "Scrivi..",
+    disabled=st.session_state["input_disabled"],
+    on_submit=disable_input,
+    key = "real")
+if st.session_state.get("real"):
+    logging.info(f'prompt: {st.session_state.get("real")}')
+    logging.info('pre add user mess')
+    # st.session_state.messages.append({"role": "user", "content": st.session_state.get("real")})
+    logging.info('post add user mess')
+    logging.info(f'message: {st.session_state.messages}')
