@@ -174,6 +174,7 @@ with response_container:
                 logging.info('Input OK')
     
         elif model == 'Llama':
+            pass
             # with st.chat_message("assistant", avatar=BOT_LOGO_URL):
             #     stream = client.invoke_endpoint_with_response_stream(
             #         EndpointName="llm-nazionale-llama-demo29052024-v3",
