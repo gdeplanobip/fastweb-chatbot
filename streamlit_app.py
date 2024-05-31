@@ -136,7 +136,7 @@ logging.info('step 1')
 st.chat_input(
     "Scrivi..",
     disabled=st.session_state["input_disabled"],
-    on_submit=disable_input
+    on_submit=disable_input,
     key = "fake")
 # logging.info(f'prompt: {prompt}')
 # st.session_state.messages.append({"role": "user", "content": prompt})
@@ -148,8 +148,8 @@ if st.session_state.get("real"):
     # logging.info('Input KO, per if prompt')
     logging.info('step 3')
     with st.chat_message("user"):
-        st.markdown(prompt)
-        st.session_state["history"].add(subject="Umano", message=prompt)
+        st.markdown(st.session_state.get("real"))
+        st.session_state["history"].add(subject="Umano", message=st.session_state.get("real"))
         message = st.session_state["history"].format()
     logging.info('step 4')
     payload = {
@@ -191,18 +191,10 @@ if st.session_state.get("real"):
 logging.info('step 8')
 logging.info(f"{st.session_state['history'].format()}")
 
-prompt = st.chat_input(
-    "Scrivi..",
-    disabled=st.session_state["input_disabled"],
-    on_submit=disable_input
-    )
-logging.info(f'prompt: {prompt}')
-st.session_state.messages.append({"role": "user", "content": prompt})
-
 st.chat_input(
     "Scrivi..",
     disabled=st.session_state["input_disabled"],
-    on_submit=disable_input
+    on_submit=disable_input,
     key = "real")
-logging.info(f'prompt: {prompt}')
-st.session_state.messages.append({"role": "user", "content": prompt})
+logging.info(f'prompt: {st.session_state.get("real")}')
+st.session_state.messages.append({"role": "user", "content": st.session_state.get("real")})
