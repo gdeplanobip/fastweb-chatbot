@@ -184,8 +184,9 @@ with response_container:
             #     st.session_state["input_disabled"] = False
             #     logging.info('Input OK')
         logging.info('step 6')
-    
+        logging.info('pre add ai mess')
         st.session_state.messages.append({"role": "assistant", "content": response})
+        logging.info('post add ai mess')
         st.session_state["history"].add(subject="AI", message=response)
         # st.session_state["input_disabled"] = False
         # logging.info('Input OK')
@@ -198,13 +199,16 @@ logging.info('step 8')
 logging.info(f"{st.session_state['history'].format()}")
 
 with input_container:
-    cane = input_placeholder.chat_input(
+    input_placeholder.chat_input(
         "Scrivi..",
         disabled=st.session_state["input_disabled"],
         on_submit=disable_input,
         key = "real")
-    # if st.session_state.get("real"):
-    logging.info(f'prompt: {st.session_state.get("real")}')
-    st.session_state.messages.append({"role": "user", "content": cane})
+    if st.session_state.get("real"):
+        logging.info(f'prompt: {st.session_state.get("real")}')
+        logging.info('pre add user mess')
+        st.session_state.messages.append({"role": "user", "content": st.session_state.get("real")})
+        logging.info('post add user mess')
+        logging.info(f'message: {st.session_state.messages}')
 
-logging.info(f'message: {st.session_state.messages}')
+
