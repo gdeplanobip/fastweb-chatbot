@@ -129,7 +129,8 @@ if "messages" not in st.session_state:
 
 response_container = st.container()
 colored_header(label="", description="", color_name="blue-70")
-input_container = st.container()
+# input_container = st.container()
+input_placeholder = st.empty()
 logging.info('step 1')
 
 # with response_container:
@@ -143,9 +144,9 @@ logging.info('step 1')
 #                 st.markdown(message["content"])
 
 
-with input_container:
-    input_placeholder = st.empty()
-    input_placeholder.chat_input(
+with input_placeholder:
+    # input_placeholder = st.empty()
+    st.chat_input(
         "Scrivi..",
         max_chars=100,
         disabled=st.session_state["input_disabled"],
@@ -217,8 +218,8 @@ with response_container:
 logging.info('step 8')
 logging.info(f"{st.session_state['history'].format()}")
 
-with input_container:
-    input_placeholder.chat_input(
+with input_placeholder:
+    st.chat_input(
         "Scrivi..",
         max_chars=100,
         disabled=st.session_state["input_disabled"],
