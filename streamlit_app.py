@@ -230,7 +230,8 @@ with input_container:
         logging.info(f'message: {st.session_state.messages}')
 
 # with input_container:
-input_placeholder.chat_input(
+with input_placeholder:
+    st.chat_input(
     "Scrivi..",
     disabled=st.session_state["input_disabled"],
     on_submit=disable_input,
