@@ -154,6 +154,7 @@ with response_container:
         logging.info('step 3')
         with st.chat_message("user"):
             st.markdown(st.session_state.get("real"))
+            st.session_state.messages.append({"role": "user", "content": st.session_state.get("real")})
             st.session_state["history"].add(subject="Umano", message=st.session_state.get("real"))
             message = st.session_state["history"].format()
         logging.info('step 4')
@@ -207,7 +208,7 @@ with input_container:
     if st.session_state.get("real"):
         logging.info(f'prompt: {st.session_state.get("real")}')
         logging.info('pre add user mess')
-        st.session_state.messages.append({"role": "user", "content": st.session_state.get("real")})
+        # st.session_state.messages.append({"role": "user", "content": st.session_state.get("real")})
         logging.info('post add user mess')
         logging.info(f'message: {st.session_state.messages}')
 
