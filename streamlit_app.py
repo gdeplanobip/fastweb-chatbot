@@ -214,4 +214,4 @@ with input_container:
         logging.info('post add user mess')
         logging.info(f'message: {st.session_state.messages}')
 
-st.chat_input("ciao")
+# st.chat_input("ciao")
