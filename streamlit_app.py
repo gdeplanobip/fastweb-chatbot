@@ -149,13 +149,13 @@ logging.info('step 2')
 
 with response_container:
     if st.session_state.get("real"):
-        # st.session_state["input_disabled"] = True
-        # logging.info('Input KO, per if prompt')
+        st.session_state["input_disabled"] = True
+        logging.info('Input KO, per if prompt')
         logging.info('step 3')
-        # with st.chat_message("user"):
-            # st.markdown(st.session_state.get("real"))
-        st.session_state["history"].add(subject="Umano", message=st.session_state.get("real"))
-        message = st.session_state["history"].format()
+        with st.chat_message("user"):
+            st.markdown(st.session_state.get("real"))
+            st.session_state["history"].add(subject="Umano", message=st.session_state.get("real"))
+            message = st.session_state["history"].format()
         logging.info('step 4')
         payload = {
             "inputs": message,
