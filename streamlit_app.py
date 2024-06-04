@@ -1,16 +1,10 @@
-# debug 
-
-""" 
-TO RUN YOUR APP USE THIS COMMAND ON TERMINAL
--> streamlit run chatbot_duble.py
-"""
-
 import streamlit as st
 import boto3
 import json
 import logging
 import time
 
+from openai import OpenAI
 from streamlit_extras.add_vertical_space import add_vertical_space
 from streamlit_extras.colored_header import colored_header
 
