@@ -130,21 +130,15 @@ with response_container:
             # ],
                 stream=True,
                 **args)       
-            logging.info(stream)
             response = st.write_stream(response_generator(stream))
             st.session_state["input_disabled"] = False
             logging.info('Input OK')
     
         logging.info('step 6')
-        logging.info('pre add ai mess')
         st.session_state.messages.append({"role": "assistant", "content": response})
-        logging.info('post add ai mess')
         st.session_state["history"].add(subject="AI", message=response)
         # st.session_state["input_disabled"] = False
         # logging.info('Input OK')
-        print("------ OUTPUT --------")
-        print(st.session_state["history"].format())
-        print()
         logging.info('step 7')
 # prompt = None
 logging.info('step 8')
