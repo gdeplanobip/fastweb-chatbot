@@ -115,7 +115,7 @@ with response_container:
             st.write(st.session_state.get("real"))
             st.session_state.messages.append({"role": "user", "content": st.session_state.get("real")})
             st.session_state["history"].add(subject="Umano", message=st.session_state.get("real"))
-            message = st.session_state["history"].format()
+            # message = st.session_state["history"].format()
         logging.info('step 4')
         logging.info(st.session_state["history"].history)
         logging.info('step 5')
