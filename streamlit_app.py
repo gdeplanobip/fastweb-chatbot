@@ -146,7 +146,6 @@ with response_container:
         logging.info('step 7')
 # prompt = None
 logging.info('step 8')
-logging.info(f"{st.session_state['history'].format()}")
 
 with input_container:
     input_placeholder.chat_input(
@@ -155,11 +154,15 @@ with input_container:
         disabled=st.session_state["input_disabled"],
         on_submit=disable_input,
         key = "real")
+    logging.info('step 9')
     if st.session_state.get("real"):
         logging.info(f'prompt: {st.session_state.get("real")}')
         logging.info('pre add user mess')
         # st.session_state.messages.append({"role": "user", "content": st.session_state.get("real")})
         logging.info('post add user mess')
         logging.info(f'message: {st.session_state.messages}')
+        logging.info('step 9.5')
 
 # st.chat_input("ciao")
+logging.info('step 10')
+logging.info(st.session_state['history'].history)
