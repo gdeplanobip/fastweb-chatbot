@@ -124,7 +124,7 @@ with response_container:
         with st.chat_message("assistant", avatar=BOT_LOGO_URL):
             stream = client.chat.completions.create(
                 model="Fastweb/Enea-v0.3-llama3-8b",
-                messages=message,
+                messages=st.session_state["history"],
                 stream=True,
                 **args)            
             response = st.write_stream(response_generator(stream))
