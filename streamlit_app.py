@@ -127,7 +127,7 @@ with response_container:
         with st.chat_message("assistant", avatar=BOT_LOGO_URL):
             stream = client.chat.completions.create(
                 model="Fastweb/Enea-v0.3-llama3-8b",
-                messages=st.session_state["history"],
+                messages=st.session_state["history"].history,
             #     messages = [
             # {"role":"system", "content": "Sei un assistente che risponde in maniera coerente in lingua italiana"},
             # {"role": "user", "content": "Presentami la figura di napoleone in due righe"}
