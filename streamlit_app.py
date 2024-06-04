@@ -129,7 +129,11 @@ with response_container:
             # {"role": "user", "content": "Presentami la figura di napoleone in due righe"}
             # ],
                 stream=True,
-                **args)       
+                **args)     
+            for chunk in stream:
+                content = chunk.choices[0].delta.to_dict().get("content", "")
+                #full_string+=content
+                print(content, end="", flush=True)
             response = st.write_stream(response_generator(stream))
             st.session_state["input_disabled"] = False
             logging.info('Input OK')
