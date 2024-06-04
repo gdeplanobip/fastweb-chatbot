@@ -26,7 +26,7 @@ class History:
     
     def format(self):
         # return "\n ".join(x["role"] + " - " + x["content"] for x in self.history)
-        return self.history
+        return self.history.__dict__
 
 
 def response_generator(response):
