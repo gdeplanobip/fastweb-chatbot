@@ -25,7 +25,7 @@ class History:
             self.history.append({"role":subject, "content": message})
     
     def format(self):
-        return "\n ".join(x["role"] + " - " + x["content"] for x in self.history)
+        return "\n ".join([x["role"] + " - " + x["content"] for x in self.history])
         # return self.history[0]
 
 
