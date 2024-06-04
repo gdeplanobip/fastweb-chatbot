@@ -31,7 +31,7 @@ class History:
 
 
 def response_generator(response):
-    for r in response:
+    for chunk in response:
         content = chunk.choices[0].delta.to_dict().get("content", "")
         yield content
 
