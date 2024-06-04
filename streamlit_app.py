@@ -37,7 +37,7 @@ class History:
 def response_generator(response):
     for r in response:
         content = chunk.choices[0].delta.to_dict().get("content", "")
-         yield content
+        yield content
 
 def disable_input():
     st.session_state["input_disabled"] = True
