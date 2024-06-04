@@ -8,7 +8,6 @@ TO RUN YOUR APP USE THIS COMMAND ON TERMINAL
 import streamlit as st
 import boto3
 import json
-import json
 import logging
 import time
 
@@ -17,25 +16,6 @@ from streamlit_extras.colored_header import colored_header
 
 logging.basicConfig()
 logging.getLogger().setLevel(logging.INFO)
-
-TOKEN_BLACKLIST = { # id: text
-    13: '\n',
-    733: ' [', 
-    28766: '|',
-    11741: 'AI',
-    28766: '|',
-    28793: ']',
-    28792: '[',
-    28779: 'U',
-    1294: 'man',
-    28709: 'o'
-}
-
-STOPWORD_SEQ_1 = ['\n', '[', '|', 'U', 'man','o']
-STOPWORD_SEQ_2 = ['\n', ' [', '|', 'U', 'man', 'o']
-
-SKIPWORD_SEQ_1 = ['\n', '[', '|', 'AI', '|', ']']
-SKIPWORD_SEQ_2 = ['\n', ' [', '|', 'AI', '|', ']']
 
 LOGO_URL = "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Fastweb_logo.svg/2560px-Fastweb_logo.svg.png"
 BOT_LOGO_URL = "https://www.fastweb.it/myfastweb/gfx/common/app-icon-2023@2x.png"
@@ -46,65 +26,50 @@ class History:
     
     def add(self, subject, message):
         if len(self.history) == 0:
-            self.history.append(f"Conversazione tra umano ed AI, [|{subject}|] {message}")
+            self.history.append({"role":"system", "content": "Sei un assistente che risponde in maniera coerente in lingua italiana"})
         else:
-            self.history.append(f"[|{subject}|] {message}")
+            self.history.append({"role":subject, "content": message})
     
     def format(self):
-        return "\n ".join(self.history)
+        return "\n ".join(x["role"] + " - " + x["content"] for x in self.history)
 
 
-def response_generator(a):
-    stop_sequence = []
-    tokens = []
-    for p in a["Body"]:
-        try:
-            token = json.loads(p["PayloadPart"]['Bytes'].decode('utf-8').split('data:')[1])['token']
-            tokens.append(token['text'])
-            if any([token['id'] == x for x in TOKEN_BLACKLIST.keys()]):
-                stop_sequence.append(token['text'])
-                if len(stop_sequence) >= 6 and (stop_sequence[-6:] == STOPWORD_SEQ_1 or stop_sequence[-6:] == STOPWORD_SEQ_2):
-                    logging.info('Risposta bloccata per rilevazione stopword')
-                    return()
-                if len(stop_sequence) >= 6 and (stop_sequence[-6:] == SKIPWORD_SEQ_1 or stop_sequence[-6:] == SKIPWORD_SEQ_2):
-                    logging.info('Risposta accorciata per rilevazione skipword')
-                    tokens = []
-            if len(tokens) == 6:
-                token_return = tokens[0]
-                tokens = tokens[1:]
-                yield token_return
-        except:
-            pass
+def response_generator(response):
+    for r in response:
+        content = chunk.choices[0].delta.to_dict().get("content", "")
+         yield content
 
 def disable_input():
     st.session_state["input_disabled"] = True
     logging.info('Input KO, per disable_input()')
 
-client = boto3.client("runtime.sagemaker", 
-                        region_name= "eu-central-1",
-                        aws_access_key_id=st.secrets.default.aws_access_key_id,
-                        aws_secret_access_key=st.secrets.default.aws_secret_access_key,
-                        aws_session_token=st.secrets.default.aws_session_token,
+url = "https://35e11a1223f7ce7801c65cc83539ce9a.serveo.net"
+ 
+# Modify OpenAI's API key and API base to use vLLM's API server.
+openai_api_key = "EMPTY"
+openai_api_base = f"{url}/v1"
+ 
+client = OpenAI(
+    api_key=openai_api_key,
+    base_url=openai_api_base,
 )
+
+args = {
+    "temperature":0,
+    "max_tokens": 2048,
+    "top_p": 0.8
+}
 
 with st.sidebar:
     st.image(LOGO_URL)
     st.markdown("<h1 style='text-align: right; color: #fdc500;'>Enea</h1>", unsafe_allow_html=True)
 
-    st.divider()
-    
-    model = st.selectbox(
-        "Selezione il modello con cui interagire",
-        ("Mistral", "Llama"))
-
-    add_vertical_space(30)
+    add_vertical_space(35)
     
     if st.button("Nuova conversazione", use_container_width =True):
         for key in st.session_state.keys():
             del st.session_state[key]
         logging.info("Reset storico conversazione per scelta dell'utente")
-
-logging.info(f'Modello scelto: {model}')
 
 if "history" not in st.session_state:
     st.session_state["history"] = History()
@@ -159,32 +124,24 @@ with response_container:
             st.session_state["history"].add(subject="Umano", message=st.session_state.get("real"))
             message = st.session_state["history"].format()
         logging.info('step 4')
-        payload = {
-            "inputs": message,
-            "parameters": {"max_new_tokens": 256, "stop":["[|Umano|]"]},
-            "stream": True
-            }
+        client.chat.completions.create(model="Fastweb/Enea-v0.3-llama3-8b",
+            messages=[
+            {"role":"system", "content": "Sei un assistente che risponde in maniera coerente in lingua italiana"},
+            {"role": "user", "content": message}
+            ],
+            stream=True,
+            **args)
         logging.info('step 5')
-        if model == 'Mistral':
-            with st.chat_message("assistant", avatar=BOT_LOGO_URL):
-                stream = client.invoke_endpoint_with_response_stream(
-                    EndpointName="llm-nazionale-mistral-demo31052024",
-                    Body=json.dumps(payload),
-                    ContentType="application/json")              
-                response = st.write_stream(response_generator(stream))
-                st.session_state["input_disabled"] = False
-                logging.info('Input OK')
+
+        with st.chat_message("assistant", avatar=BOT_LOGO_URL):
+            stream = client.invoke_endpoint_with_response_stream(
+                EndpointName="llm-nazionale-mistral-demo31052024",
+                Body=json.dumps(payload),
+                ContentType="application/json")              
+            response = st.write_stream(response_generator(stream))
+            st.session_state["input_disabled"] = False
+            logging.info('Input OK')
     
-        elif model == 'Llama':
-            pass
-            # with st.chat_message("assistant", avatar=BOT_LOGO_URL):
-            #     stream = client.invoke_endpoint_with_response_stream(
-            #         EndpointName="llm-nazionale-llama-demo29052024-v3",
-            #         Body=json.dumps(payload),
-            #         ContentType="application/json")
-            #     response = st.write_stream(response_generator(stream))
-            #     st.session_state["input_disabled"] = False
-            #     logging.info('Input OK')
         logging.info('step 6')
         logging.info('pre add ai mess')
         st.session_state.messages.append({"role": "assistant", "content": response})
