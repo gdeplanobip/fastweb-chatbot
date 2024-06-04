@@ -130,7 +130,7 @@ with response_container:
                 messages = [
             {"role":"system", "content": "Sei un assistente che risponde in maniera coerente in lingua italiana"},
             {"role": "user", "content": "Presentami la figura di napoleone in due righe"}
-            ]
+            ],
                 stream=True,
                 **args)            
             response = st.write_stream(response_generator(stream))
