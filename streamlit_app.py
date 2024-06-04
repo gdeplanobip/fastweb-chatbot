@@ -25,11 +25,7 @@ class History:
             self.history.append({"role":subject, "content": message})
     
     def format(self):
-        print([x["role"] + " - " + x["content"] for x in self.history])
-        # return "\n ".join([x["role"] + " - " + x["content"] for x in self.history])
-        # return self.history
-        return self.history
-
+        return "\n ".join([x["role"] + " - " + x["content"] for x in self.history])
 
 def response_generator(response):
     for chunk in response:
@@ -133,7 +129,8 @@ with response_container:
             # {"role": "user", "content": "Presentami la figura di napoleone in due righe"}
             # ],
                 stream=True,
-                **args)            
+                **args)       
+            logging.info(stream)
             response = st.write_stream(response_generator(stream))
             st.session_state["input_disabled"] = False
             logging.info('Input OK')
