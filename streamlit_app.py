@@ -117,7 +117,7 @@ with response_container:
             st.session_state["history"].add(subject="Umano", message=st.session_state.get("real"))
             message = st.session_state["history"].format()
         logging.info('step 4')
-        logging.info(st.session_state["history"])
+        logging.info(st.session_state["history"].history)
         logging.info('step 5')
 
         with st.chat_message("assistant", avatar=BOT_LOGO_URL):
