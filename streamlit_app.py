@@ -118,15 +118,15 @@ with response_container:
             st.session_state["history"].add(subject="Umano", message=st.session_state.get("real"))
             message = st.session_state["history"].format()
         logging.info('step 4')
-
+        logging.info(message)
         logging.info('step 5')
 
         with st.chat_message("assistant", avatar=BOT_LOGO_URL):
             stream = client.chat.completions.create(
                 model="Fastweb/Enea-v0.3-llama3-8b",
                 messages=message,
-            stream=True,
-            **args)            
+                stream=True,
+                **args)            
             response = st.write_stream(response_generator(stream))
             st.session_state["input_disabled"] = False
             logging.info('Input OK')
