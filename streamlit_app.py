@@ -71,10 +71,6 @@ with st.sidebar:
 if "history" not in st.session_state:
     st.session_state["history"] = History()
     logging.info('Inizializzazione storico conversazione')
-    with st.chat_message("assistant", avatar=BOT_LOGO_URL):
-            welcome_text = "Ciao sono il nuovo assistente generativo di Fastweb, cosa posso fare per te?"
-            response = st.write(welcome_text) 
-            st.session_state.messages.append({"role": "assistant", "content": welcome_text})
 
 if "input_disabled" not in st.session_state:
     st.session_state["input_disabled"] = False
@@ -82,6 +78,10 @@ if "input_disabled" not in st.session_state:
 
 if "messages" not in st.session_state:
     st.session_state.messages = []
+    with st.chat_message("assistant", avatar=BOT_LOGO_URL):
+        welcome_text = "Ciao sono il nuovo assistente generativo di Fastweb, cosa posso fare per te?"
+        response = st.write(welcome_text) 
+        st.session_state.messages.append({"role": "assistant", "content": welcome_text})
 
 response_container = st.container()
 # response_container.float()
