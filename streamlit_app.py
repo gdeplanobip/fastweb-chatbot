@@ -134,7 +134,7 @@ with response_container:
                     {"role": "user", 
                      "content": st.session_state.get("real")}
                 ]
-            
+            logging.info(f'Input modello - {prompt}')
             stream = client.chat.completions.create(
                 model=MODEL_NAME,
                 messages=prompt,
