@@ -79,9 +79,9 @@ if "messages" not in st.session_state:
     st.session_state.messages = []
 
 response_container = st.container()
-response_container.float()
+# response_container.float()
 input_container = st.container()
-input_container.float()
+# input_container.float()
 
 with response_container:
     pass
