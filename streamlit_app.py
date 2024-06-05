@@ -60,11 +60,13 @@ client = OpenAI(
     base_url=OPENAI_API_BASE,
 )
 
-with st.chat_message("assistant", avatar=BOT_LOGO_URL):
-    benv = "Ciao sono Enea, il nuovo assistente generativo di Fastweb, cosa posso fare per te?"
-    response = st.write_stream(benvenuto(benv))
-    st.session_state.messages.append({"role": "assistant", "content": benv})
-    # st.session_state["history"].add(subject="assistant", message=benv)
+# with st.chat_message("assistant", avatar=BOT_LOGO_URL):
+#     benv = "Ciao sono Enea, il nuovo assistente generativo di Fastweb, cosa posso fare per te?"
+#     response = st.write_stream(benvenuto(benv))
+#     st.session_state.messages.append({"role": "assistant", "content": benv})
+#     # st.session_state["history"].add(subject="assistant", message=benv)
+
+st.text("Ciao sono Enea, il nuovo assistente generativo di Fastweb, cosa posso fare per te?")
 
 with st.sidebar:
     st.image(LOGO_URL)
