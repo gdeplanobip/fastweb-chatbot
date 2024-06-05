@@ -3,4 +3,5 @@ dependencies:
   - boto3
   - streamlit-chat
   - streamlit-extras
+  - streamlit-float
   - openai
