@@ -61,7 +61,11 @@ with st.sidebar:
     st.image(LOGO_URL)
     st.markdown("<h1 style='text-align: right; color: #fdc500;'>Enea v0.4</h1>", unsafe_allow_html=True)
 
-    add_vertical_space(35)
+    add_vertical_space(3)
+
+    active_history = st.toggle("Activate history")
+        
+    add_vertical_space(30)
     
     if st.button("Nuova conversazione", use_container_width =True):
         for key in st.session_state.keys():
@@ -121,11 +125,21 @@ with response_container:
             st.session_state["history"].add(subject="user", message=st.session_state.get("real"))
 
         with st.chat_message("assistant", avatar=BOT_LOGO_URL).empty():
-            stream = client.chat.completions.create(
-                model=MODEL_NAME,
-                messages=st.session_state["history"].history,
-                stream=True,
-                **ARGS)     
+            if active_history:
+                prompt = st.session_state["history"].history
+            else:
+                prompt = [
+                    {"role":"system", 
+                     "content": "Sei un assistente virtuale di poche parole che parla solo italiano. Rispondi alla seguente domanda o affermazione."},
+                    {"role": "user", 
+                     "content": st.session_state.get("real")}
+                ]
+            
+                stream = client.chat.completions.create(
+                    model=MODEL_NAME,
+                    messages=prompt,
+                    stream=True,
+                    **ARGS)     
             # response = st.write_stream(response_generator(stream))
             response = ""
             for chunk in stream:
