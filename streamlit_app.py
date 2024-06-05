@@ -77,7 +77,7 @@ if "input_disabled" not in st.session_state:
 if "messages" not in st.session_state:
     st.session_state.messages = []
 
-response_container = st.container(height = 10000)
+response_container = st.container()
 input_container = st.container()
 
 with input_container:
@@ -92,13 +92,13 @@ with input_container:
 
 with response_container:
     
-    for message in st.session_state.messages:
-        if message["role"] == "user":
-            with st.chat_message(message["role"]):
-                st.write(message["content"])
-        else:
-            with st.chat_message(message["role"], avatar=BOT_LOGO_URL):
-                st.write(message["content"])
+    # for message in st.session_state.messages:
+    #     if message["role"] == "user":
+    #         with st.chat_message(message["role"]):
+    #             st.write(message["content"])
+    #     else:
+    #         with st.chat_message(message["role"], avatar=BOT_LOGO_URL):
+    #             st.write(message["content"])
     
     if st.session_state.get("real"):
         st.session_state["input_disabled"] = True
