@@ -45,11 +45,6 @@ def response_generator(response):
         content = chunk.choices[0].delta.to_dict().get("content", "")
         yield content
 
-def benvenuto(mes):
-    for chunk in mes:
-        time.sleep(0.05)
-        yield chunk
-
 def disable_input():
     st.session_state["input_disabled"] = True
     logging.info('Input KO, per disable_input()')
@@ -59,14 +54,6 @@ client = OpenAI(
     api_key=OPENAI_API_KEY,
     base_url=OPENAI_API_BASE,
 )
-
-# with st.chat_message("assistant", avatar=BOT_LOGO_URL):
-#     benv = "Ciao sono Enea, il nuovo assistente generativo di Fastweb, cosa posso fare per te?"
-#     response = st.write_stream(benvenuto(benv))
-#     st.session_state.messages.append({"role": "assistant", "content": benv})
-#     # st.session_state["history"].add(subject="assistant", message=benv)
-
-# st.text("Ciao sono Enea, il nuovo assistente generativo di Fastweb, cosa posso fare per te?")
 
 with st.sidebar:
     st.image(LOGO_URL)
@@ -135,17 +122,11 @@ with response_container:
         st.session_state.messages.append({"role": "assistant", "content": response})
         st.session_state["history"].add(subject="assistant", message=response)
 
-
-
     else:
-        st.session_state["input_disabled"] = True
         with st.chat_message("assistant", avatar=BOT_LOGO_URL):
-            benv = "Ciao sono Enea, il nuovo assistente generativo di Fastweb, cosa posso fare per te?"
-            # response = st.write_stream(benvenuto(benv))
-            response = st.write(benv) 
-            st.session_state.messages.append({"role": "assistant", "content": benv})
-            # st.session_state["history"].add(subject="assistant", message=benv)
-        st.session_state["input_disabled"] = False
+            welcome_text = "Ciao sono il nuovo assistente generativo di Fastweb, cosa posso fare per te?"
+            response = st.write(welcome_text) 
+            st.session_state.messages.append({"role": "assistant", "content": welcome_text})
 
     logging.info(f'{st.session_state["history"].history}')
 
