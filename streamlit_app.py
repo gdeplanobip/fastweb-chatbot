@@ -33,9 +33,9 @@ class History:
                 {"role":"system", 
                  "content": "Sei un assistente virtuale di poche parole che parla solo italiano. Rispondi alla seguente domanda o affermazione."}
             )
-            logging.debug('History updated with -> system')
+            logging.info('History updated with -> system')
         self.history.append({"role":subject, "content": message})
-        logging.debug(f'History updated with -> {subject}')
+        logging.info(f'History updated with -> {subject}')
     
     def format(self):
         return "\n ".join([x["role"] + " - " + x["content"] for x in self.history])
@@ -72,7 +72,7 @@ if "history" not in st.session_state:
 
 if "input_disabled" not in st.session_state:
     st.session_state["input_disabled"] = False
-    logging.debug('Input OK')
+    logging.info('Input OK')
 
 if "messages" not in st.session_state:
     st.session_state.messages = []
@@ -105,7 +105,7 @@ with response_container:
     
     if st.session_state.get("real"):
         st.session_state["input_disabled"] = True
-        logging.debug('Input KO')
+        logging.info('Input KO')
         # logging.info('step 3')
         with st.chat_message("user"):
             st.write(st.session_state.get("real"))
@@ -124,7 +124,7 @@ with response_container:
                 **ARGS)     
             response = st.write_stream(response_generator(stream))
             st.session_state["input_disabled"] = False
-            logging.debug('Input OK')
+            logging.info('Input OK')
     
         # logging.info('step 6')
         st.session_state.messages.append({"role": "assistant", "content": response})
