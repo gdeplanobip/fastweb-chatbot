@@ -33,7 +33,7 @@ class History:
                 {"role":"system", 
                  "content": "Sei un assistente virtuale di poche parole che parla solo italiano. Rispondi alla seguente domanda o affermazione."}
             )
-            logging.info('History updated with -> system')
+            logging.info('History updated with -> System')
         self.history.append({"role":subject, "content": message})
         logging.info(f'History updated with -> {subject}')
     
@@ -80,7 +80,6 @@ if "messages" not in st.session_state:
 response_container = st.container()
 colored_header(label="", description="", color_name="blue-70")
 input_container = st.container()
-# logging.info('step 1')
 
 with input_container:
     input_placeholder = st.empty()
@@ -90,8 +89,7 @@ with input_container:
         disabled=st.session_state["input_disabled"],
         on_submit=disable_input,
         key = "fake")
-
-# logging.info('step 2')
+    
 
 with response_container:
     
@@ -106,15 +104,11 @@ with response_container:
     if st.session_state.get("real"):
         st.session_state["input_disabled"] = True
         logging.info('Input KO')
-        # logging.info('step 3')
+
         with st.chat_message("user"):
             st.write(st.session_state.get("real"))
             st.session_state.messages.append({"role": "user", "content": st.session_state.get("real")})
-            st.session_state["history"].add(subject="Umano", message=st.session_state.get("real"))
-            # message = st.session_state["history"].format()
-        # logging.info('step 4')
-        # logging.info(st.session_state["history"].history)
-        # logging.info('step 5')
+            st.session_state["history"].add(subject="user", message=st.session_state.get("real"))
 
         with st.chat_message("assistant", avatar=BOT_LOGO_URL):
             stream = client.chat.completions.create(
@@ -125,12 +119,10 @@ with response_container:
             response = st.write_stream(response_generator(stream))
             st.session_state["input_disabled"] = False
             logging.info('Input OK')
-    
-        # logging.info('step 6')
+
         st.session_state.messages.append({"role": "assistant", "content": response})
         st.session_state["history"].add(subject="AI", message=response)
-        # logging.info('step 7')
-# logging.info('step 8')
+
 
 with input_container:
     input_placeholder.chat_input(
@@ -139,15 +131,4 @@ with input_container:
         disabled=st.session_state["input_disabled"],
         on_submit=disable_input,
         key = "real")
-    # logging.info('step 9')
-    # if st.session_state.get("real"):
-        # logging.info(f'prompt: {st.session_state.get("real")}')
-        # logging.info('pre add user mess')
-        # st.session_state.messages.append({"role": "user", "content": st.session_state.get("real")})
-        # logging.info('post add user mess')
-        # logging.info(f'message: {st.session_state.messages}')
-        # logging.info('step 9.5')
 
-# st.chat_input("ciao")
-# logging.info('step 10')
-# logging.info(st.session_state['history'].history)
