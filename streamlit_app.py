@@ -20,9 +20,14 @@ class History:
     
     def add(self, subject, message):
         if len(self.history) == 0:
-            self.history.append({"role":"system", "content": "Sei un assistente che risponde in maniera coerente in lingua italiana"})
+            self.history.append(
+                {"role":"system", 
+                 "content": "Sei un assistente virtuale di poche parole che parla solo italiano. Rispondi alla seguente domanda o affermazione."}
+            )
         else:
             self.history.append({"role":subject, "content": message})
+        logging.info(f'STORICO AGGIORNATO CON -> {subject}')
+            
     
     def format(self):
         return "\n ".join([x["role"] + " - " + x["content"] for x in self.history])
@@ -36,7 +41,7 @@ def disable_input():
     st.session_state["input_disabled"] = True
     logging.info('Input KO, per disable_input()')
 
-url = "https://35e11a1223f7ce7801c65cc83539ce9a.serveo.net"
+url = "https://eadaee78c5feaaae48433fcde17458cb.serveo.net"
  
 # Modify OpenAI's API key and API base to use vLLM's API server.
 openai_api_key = "EMPTY"
@@ -55,7 +60,7 @@ args = {
 
 with st.sidebar:
     st.image(LOGO_URL)
-    st.markdown("<h1 style='text-align: right; color: #fdc500;'>Enea</h1>", unsafe_allow_html=True)
+    st.markdown("<h1 style='text-align: right; color: #fdc500;'>Enea v0.4</h1>", unsafe_allow_html=True)
 
     add_vertical_space(35)
     
@@ -122,7 +127,7 @@ with response_container:
 
         with st.chat_message("assistant", avatar=BOT_LOGO_URL):
             stream = client.chat.completions.create(
-                model="Fastweb/Enea-v0.3-llama3-8b",
+                model="Fastweb/Enea-v0.4-llama3-8b",
                 messages=st.session_state["history"].history,
             #     messages = [
             # {"role":"system", "content": "Sei un assistente che risponde in maniera coerente in lingua italiana"},
