@@ -15,8 +15,8 @@ logging.getLogger().setLevel(logging.INFO)
 LOGO_URL = "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Fastweb_logo.svg/2560px-Fastweb_logo.svg.png"
 BOT_LOGO_URL = "https://www.fastweb.it/myfastweb/gfx/common/app-icon-2023@2x.png"
 
-MODEL_URL = "https://db94836ad2fc8dfd3572263138ba5a94.serveo.net"
-MODEL_NAME = "Fastweb/Enea-v0.5-llama3-8b"
+MODEL_URL = "https://6b7cce9aada4fc56cfb364f0da2f9be3.serveo.net"
+MODEL_NAME = "Fastweb/Enea-v0.4-llama3-8b"
 OPENAI_API_KEY = "EMPTY"
 OPENAI_API_BASE = f"{MODEL_URL}/v1"
 ARGS = {
@@ -59,7 +59,7 @@ client = OpenAI(
 
 with st.sidebar:
     st.image(LOGO_URL)
-    st.markdown("<h1 style='text-align: right; color: #fdc500;'>Enea v0.5</h1>", unsafe_allow_html=True)
+    st.markdown("<h1 style='text-align: right; color: #fdc500;'>Enea v0.4</h1>", unsafe_allow_html=True)
 
     add_vertical_space(35)
     
