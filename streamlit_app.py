@@ -122,7 +122,7 @@ with response_container:
                 stream=True,
                 **ARGS)     
             # response = st.write_stream(response_generator(stream))
-            mess = ""
+            response = ""
             for chunk in stream:
                 text_message = chunk.choices[0].delta.to_dict().get("content", "")
                 response += text_message 
