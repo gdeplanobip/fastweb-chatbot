@@ -16,7 +16,7 @@ BOT_LOGO_URL = "https://www.fastweb.it/myfastweb/gfx/common/app-icon-2023@2x.png
 
 MODEL_URL = "https://eadaee78c5feaaae48433fcde17458cb.serveo.net"
 OPENAI_API_KEY = "EMPTY"
-OPENAI_API_BASE = f"{url}/v1"
+OPENAI_API_BASE = f"{MODEL_URL}/v1"
 ARGS = {
     "temperature":0,
     "max_tokens": 2048,
