@@ -66,6 +66,7 @@ with st.sidebar:
     # active_history = st.checkbox("Activate history")
     # st.write(f"active_history value = {active_history}")
     active_history = False
+    add_vertical_space(2)
         
     add_vertical_space(30)
     
