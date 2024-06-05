@@ -122,6 +122,8 @@ with response_container:
         st.session_state.messages.append({"role": "assistant", "content": response})
         st.session_state["history"].add(subject="AI", message=response)
 
+        logging.info(f'{st.session_state["history"].history}')
+
 
 with input_container:
     input_placeholder.chat_input(
