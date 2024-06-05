@@ -100,7 +100,7 @@ with input_container:
     input_placeholder = st.empty()
     input_placeholder.chat_input(
         "Scrivi..",
-        max_chars=2000,
+        max_chars=6000,
         disabled=st.session_state["input_disabled"],
         on_submit=disable_input,
         key = "fake")
@@ -166,7 +166,7 @@ with response_container:
 with input_container:
     input_placeholder.chat_input(
         "Scrivi..",
-        max_chars=2000,
+        max_chars=6000,
         disabled=st.session_state["input_disabled"],
         on_submit=disable_input,
         key = "real")
