@@ -14,6 +14,15 @@ logging.getLogger().setLevel(logging.INFO)
 LOGO_URL = "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Fastweb_logo.svg/2560px-Fastweb_logo.svg.png"
 BOT_LOGO_URL = "https://www.fastweb.it/myfastweb/gfx/common/app-icon-2023@2x.png"
 
+MODEL_URL = "https://eadaee78c5feaaae48433fcde17458cb.serveo.net"
+OPENAI_API_KEY = "EMPTY"
+OPENAI_API_BASE = f"{url}/v1"
+ARGS = {
+    "temperature":0,
+    "max_tokens": 2048,
+    "top_p": 0.8
+}
+
 class History:
     def __init__(self):
         self.history = []
@@ -24,8 +33,7 @@ class History:
                 {"role":"system", 
                  "content": "Sei un assistente virtuale di poche parole che parla solo italiano. Rispondi alla seguente domanda o affermazione."}
             )
-        else:
-            self.history.append({"role":subject, "content": message})
+        self.history.append({"role":subject, "content": message})
         logging.info(f'STORICO AGGIORNATO CON -> {subject}')
             
     
@@ -41,22 +49,14 @@ def disable_input():
     st.session_state["input_disabled"] = True
     logging.info('Input KO, per disable_input()')
 
-url = "https://eadaee78c5feaaae48433fcde17458cb.serveo.net"
- 
-# Modify OpenAI's API key and API base to use vLLM's API server.
-openai_api_key = "EMPTY"
-openai_api_base = f"{url}/v1"
+
  
 client = OpenAI(
-    api_key=openai_api_key,
-    base_url=openai_api_base,
+    api_key=OPENAI_API_KEY,
+    base_url=OPENAI_API_BASE,
 )
 
-args = {
-    "temperature":0,
-    "max_tokens": 2048,
-    "top_p": 0.8
-}
+
 
 with st.sidebar:
     st.image(LOGO_URL)
@@ -100,7 +100,7 @@ with input_container:
 # logging.info(f'prompt: {prompt}')
 # st.session_state.messages.append({"role": "user", "content": "test"})
 
-# logging.info('step 2')
+logging.info('step 2')
 
 with response_container:
 
@@ -129,16 +129,10 @@ with response_container:
             stream = client.chat.completions.create(
                 model="Fastweb/Enea-v0.4-llama3-8b",
                 messages=st.session_state["history"].history,
-            #     messages = [
-            # {"role":"system", "content": "Sei un assistente che risponde in maniera coerente in lingua italiana"},
-            # {"role": "user", "content": "Presentami la figura di napoleone in due righe"}
-            # ],
                 stream=True,
-                **args)     
+                **ARGS)     
             for chunk in stream:
                 content = chunk.choices[0].delta.to_dict().get("content", "")
-                #full_string+=content
-                print(content, end="", flush=True)
             response = st.write_stream(response_generator(stream))
             st.session_state["input_disabled"] = False
             logging.info('Input OK')
@@ -146,10 +140,7 @@ with response_container:
         logging.info('step 6')
         st.session_state.messages.append({"role": "assistant", "content": response})
         st.session_state["history"].add(subject="AI", message=response)
-        # st.session_state["input_disabled"] = False
-        # logging.info('Input OK')
         logging.info('step 7')
-# prompt = None
 logging.info('step 8')
 
 with input_container:
