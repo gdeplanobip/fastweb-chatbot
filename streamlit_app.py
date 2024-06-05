@@ -83,7 +83,7 @@ input_container = st.container()
 # input_container.float("bottom: 6.8rem;")
 
 with response_container:
-    colored_header(label="", description="", color_name="blue-70")
+    pass
                 
 with input_container:
     input_placeholder = st.empty()
