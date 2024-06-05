@@ -7,7 +7,7 @@ import time
 from openai import OpenAI
 from streamlit_extras.add_vertical_space import add_vertical_space
 from streamlit_extras.colored_header import colored_header
-from streamlit-float import * 
+from streamlit_float import * 
 
 logging.basicConfig()
 logging.getLogger().setLevel(logging.INFO)
