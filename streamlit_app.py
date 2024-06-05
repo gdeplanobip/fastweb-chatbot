@@ -47,9 +47,8 @@ def response_generator(response):
 
 def benvenuto():
     for chunk in "Ciao sono Enea, il nuovo assistente generativo di Fastweb, cosa posso fare per te?":
-        content = 
         sleep(0.05)
-        yield content
+        yield chunk
 
 def disable_input():
     st.session_state["input_disabled"] = True
