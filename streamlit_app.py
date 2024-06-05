@@ -120,7 +120,7 @@ with response_container:
             logging.info('Input OK')
 
         st.session_state.messages.append({"role": "assistant", "content": response})
-        st.session_state["history"].add(subject="AI", message=response)
+        st.session_state["history"].add(subject="assistant", message=response)
 
         logging.info(f'{st.session_state["history"].history}')
 
