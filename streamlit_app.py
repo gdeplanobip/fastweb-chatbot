@@ -55,6 +55,9 @@ client = OpenAI(
     base_url=OPENAI_API_BASE,
 )
 
+response_container = st.container()
+input_container = st.container()
+
 with st.sidebar:
     st.image(LOGO_URL)
     st.markdown("<h1 style='text-align: right; color: #fdc500;'>Enea v0.4</h1>", unsafe_allow_html=True)
@@ -77,8 +80,7 @@ if "input_disabled" not in st.session_state:
 if "messages" not in st.session_state:
     st.session_state.messages = []
 
-response_container = st.container()
-input_container = st.container()
+
 
 with input_container:
     input_placeholder = st.empty()
