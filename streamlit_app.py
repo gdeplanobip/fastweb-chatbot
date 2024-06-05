@@ -20,9 +20,9 @@ MODEL_NAME = "Fastweb/Enea-v0.4-llama3-8b"
 OPENAI_API_KEY = "EMPTY"
 OPENAI_API_BASE = f"{MODEL_URL}/v1"
 ARGS = {
-    "temperature":0.01,
+    "temperature":0,
     "max_tokens": 2048,
-    "top_p": 0.01
+    "top_p": 0
 }
 
 class History:
