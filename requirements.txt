@@ -1,4 +1,5 @@
 boto3
+streamlit==1.24.0
 streamlit-float
 streamlit-chat
 streamlit-extras
