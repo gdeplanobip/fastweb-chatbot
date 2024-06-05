@@ -82,10 +82,7 @@ response_container = st.container()
 input_container = st.container()
 # input_container.float("bottom: 6.8rem;")
 
-
-
 with response_container:
-    
     for message in st.session_state.messages:
         if message["role"] == "user":
             with st.chat_message(message["role"]):
@@ -93,6 +90,20 @@ with response_container:
         else:
             with st.chat_message(message["role"], avatar=BOT_LOGO_URL):
                 st.write(message["content"])
+                
+with input_container:
+    input_placeholder = st.empty()
+    input_placeholder.chat_input(
+        "Scrivi..",
+        max_chars=100,
+        disabled=st.session_state["input_disabled"],
+        on_submit=disable_input,
+        key = "fake")
+
+
+with response_container:
+    
+
     
     if st.session_state.get("real"):
         st.session_state["input_disabled"] = True
@@ -124,14 +135,6 @@ with response_container:
 
     logging.info(f'{st.session_state["history"].history}')
 
-with input_container:
-    input_placeholder = st.empty()
-    input_placeholder.chat_input(
-        "Scrivi..",
-        max_chars=100,
-        disabled=st.session_state["input_disabled"],
-        on_submit=disable_input,
-        key = "fake")
     
 
 with input_container:
