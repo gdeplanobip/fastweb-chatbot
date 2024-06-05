@@ -33,6 +33,7 @@ class History:
                 {"role":"system", 
                  "content": "Sei un assistente virtuale di poche parole che parla solo italiano. Rispondi alla seguente domanda o affermazione."}
             )
+            logging.info(f'STORICO AGGIORNATO CON -> {system}')
         self.history.append({"role":subject, "content": message})
         logging.info(f'STORICO AGGIORNATO CON -> {subject}')
             
