@@ -15,7 +15,7 @@ logging.getLogger().setLevel(logging.INFO)
 LOGO_URL = "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Fastweb_logo.svg/2560px-Fastweb_logo.svg.png"
 BOT_LOGO_URL = "https://www.fastweb.it/myfastweb/gfx/common/app-icon-2023@2x.png"
 
-MODEL_URL = "https://6b7cce9aada4fc56cfb364f0da2f9be3.serveo.net"
+MODEL_URL = "https://fa764b6db03f7732cfe5bf8ac053a5c8.serveo.net"
 MODEL_NAME = "Fastweb/Enea-v0.4-llama3-8b"
 OPENAI_API_KEY = "EMPTY"
 OPENAI_API_BASE = f"{MODEL_URL}/v1"
