@@ -78,7 +78,6 @@ if "messages" not in st.session_state:
     st.session_state.messages = []
 
 response_container = st.container()
-colored_header(label="", description="", color_name="blue-70")
 input_container = st.container()
 
 with input_container:
