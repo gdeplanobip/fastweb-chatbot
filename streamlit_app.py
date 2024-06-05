@@ -45,9 +45,9 @@ def response_generator(response):
         content = chunk.choices[0].delta.to_dict().get("content", "")
         yield content
 
-def benvenuto():
-    for chunk in "Ciao sono Enea, il nuovo assistente generativo di Fastweb, cosa posso fare per te?":
-        sleep(0.05)
+def benvenuto(mes):
+    for chunk in mes:
+        time.sleep(0.05)
         yield chunk
 
 def disable_input():
@@ -130,9 +130,10 @@ with response_container:
 
 
     else:
-        response = st.write_stream(benvenuto())
-        st.session_state.messages.append({"role": "assistant", "content": response})
-        st.session_state["history"].add(subject="assistant", message=response)
+        benv = "Ciao sono Enea, il nuovo assistente generativo di Fastweb, cosa posso fare per te?"
+        response = st.write_stream(benvenuto(benv))
+        st.session_state.messages.append({"role": "assistant", "content": benv})
+        st.session_state["history"].add(subject="assistant", message=benv)
 
     logging.info(f'{st.session_state["history"].history}')
 
