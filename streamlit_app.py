@@ -22,7 +22,7 @@ OPENAI_API_BASE = f"{MODEL_URL}/v1"
 ARGS = {
     "temperature":0,
     "max_tokens": 2048,
-    "top_p": 0.01
+    "top_p": 0.001
 }
 
 class History:
@@ -33,7 +33,7 @@ class History:
         if len(self.history) == 0:
             self.history.append(
                 {"role":"system", 
-                 "content": "Sei un assistente virtuale di poche parole che parla un eccellente italiano e che si chiama Enea. Sei stato creato, ideato e sviluppato dalla società Fastweb. Rispondi solamente alla seguente richiesta."}
+                 "content": "Sei un assistente virtuale di poche parole che parla un eccellente italiano e ti chiami Enea. Sei stato creato, ideato e sviluppato dalla società Fastweb. Rispondi solamente alla seguente richiesta."}
             )
             logging.info('History updated with -> System')
         self.history.append({"role":subject, "content": message})
@@ -131,7 +131,7 @@ with response_container:
             else:
                 prompt = [
                     {"role":"system", 
-                     "content": "Sei un assistente virtuale di poche parole che parla un eccellente italiano e che si chiama Enea. Sei stato creato, ideato e sviluppato dalla società Fastweb. Rispondi solamente alla seguente richiesta."},
+                     "content": "Sei un assistente virtuale di poche parole che parla un eccellente italiano e ti chiami Enea. Sei stato creato, ideato e sviluppato dalla società Fastweb. Rispondi solamente alla seguente richiesta."},
                     {"role": "user", 
                      "content": st.session_state.get("real")}
                 ]
