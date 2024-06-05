@@ -63,7 +63,7 @@ with st.sidebar:
 
     add_vertical_space(3)
 
-    active_history = st.toggle("Activate history")
+    active_history = st.checkbox("Activate history")
         
     add_vertical_space(30)
     
