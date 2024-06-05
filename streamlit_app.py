@@ -122,8 +122,11 @@ with response_container:
                 stream=True,
                 **ARGS)     
             # response = st.write_stream(response_generator(stream))
+            mess = ""
             for s in stream:
-                st.write(s.choices[0].delta.to_dict().get("content", ""))
+                mes = s.choices[0].delta.to_dict().get("content", "")
+                mess += mes 
+                st.write(mess)
             st.session_state["input_disabled"] = False
             logging.info('Input OK')
 
