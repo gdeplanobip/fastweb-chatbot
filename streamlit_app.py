@@ -22,7 +22,7 @@ OPENAI_API_BASE = f"{MODEL_URL}/v1"
 ARGS = {
     "temperature":0,
     "max_tokens": 2048,
-    "top_p": 0
+    "top_p": 0.01
 }
 
 class History:
