@@ -83,13 +83,7 @@ input_container = st.container()
 # input_container.float("bottom: 6.8rem;")
 
 with response_container:
-    for message in st.session_state.messages:
-        if message["role"] == "user":
-            with st.chat_message(message["role"]):
-                st.write(message["content"])
-        else:
-            with st.chat_message(message["role"], avatar=BOT_LOGO_URL):
-                st.write(message["content"])
+    colored_header(label="", description="", color_name="blue-70")
                 
 with input_container:
     input_placeholder = st.empty()
@@ -103,7 +97,13 @@ with input_container:
 
 with response_container:
     
-
+    for message in st.session_state.messages:
+        if message["role"] == "user":
+            with st.chat_message(message["role"]):
+                st.write(message["content"])
+        else:
+            with st.chat_message(message["role"], avatar=BOT_LOGO_URL):
+                st.write(message["content"])
     
     if st.session_state.get("real"):
         st.session_state["input_disabled"] = True
