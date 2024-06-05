@@ -135,11 +135,11 @@ with response_container:
                      "content": st.session_state.get("real")}
                 ]
             
-                stream = client.chat.completions.create(
-                    model=MODEL_NAME,
-                    messages=prompt,
-                    stream=True,
-                    **ARGS)     
+            stream = client.chat.completions.create(
+                model=MODEL_NAME,
+                messages=prompt,
+                stream=True,
+                **ARGS)     
             # response = st.write_stream(response_generator(stream))
             response = ""
             for chunk in stream:
