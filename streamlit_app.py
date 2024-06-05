@@ -33,10 +33,9 @@ class History:
                 {"role":"system", 
                  "content": "Sei un assistente virtuale di poche parole che parla solo italiano. Rispondi alla seguente domanda o affermazione."}
             )
-            logging.info(f'STORICO AGGIORNATO CON -> system')
+            logging.debug('History updated with -> system')
         self.history.append({"role":subject, "content": message})
-        logging.info(f'STORICO AGGIORNATO CON -> {subject}')
-            
+        logging.debug(f'History updated with -> {subject}')
     
     def format(self):
         return "\n ".join([x["role"] + " - " + x["content"] for x in self.history])
@@ -51,13 +50,10 @@ def disable_input():
     logging.info('Input KO, per disable_input()')
 
 
- 
 client = OpenAI(
     api_key=OPENAI_API_KEY,
     base_url=OPENAI_API_BASE,
 )
-
-
 
 with st.sidebar:
     st.image(LOGO_URL)
@@ -68,7 +64,7 @@ with st.sidebar:
     if st.button("Nuova conversazione", use_container_width =True):
         for key in st.session_state.keys():
             del st.session_state[key]
-        logging.info("Reset storico conversazione per scelta dell'utente")
+        logging.info("Reset storico conversazione per nuova conversazione")
 
 if "history" not in st.session_state:
     st.session_state["history"] = History()
@@ -76,19 +72,15 @@ if "history" not in st.session_state:
 
 if "input_disabled" not in st.session_state:
     st.session_state["input_disabled"] = False
-    logging.info('Input OK')
+    logging.debug('Input OK')
 
 if "messages" not in st.session_state:
     st.session_state.messages = []
 
-
-# LAYOUT 
-
 response_container = st.container()
 colored_header(label="", description="", color_name="blue-70")
 input_container = st.container()
-logging.info('step 1')
-
+# logging.info('step 1')
 
 with input_container:
     input_placeholder = st.empty()
@@ -98,13 +90,11 @@ with input_container:
         disabled=st.session_state["input_disabled"],
         on_submit=disable_input,
         key = "fake")
-# logging.info(f'prompt: {prompt}')
-# st.session_state.messages.append({"role": "user", "content": "test"})
 
-logging.info('step 2')
+# logging.info('step 2')
 
 with response_container:
-
+    
     for message in st.session_state.messages:
         if message["role"] == "user":
             with st.chat_message(message["role"]):
@@ -115,16 +105,16 @@ with response_container:
     
     if st.session_state.get("real"):
         st.session_state["input_disabled"] = True
-        logging.info('Input KO, per if prompt')
-        logging.info('step 3')
+        logging.debug('Input KO')
+        # logging.info('step 3')
         with st.chat_message("user"):
             st.write(st.session_state.get("real"))
             st.session_state.messages.append({"role": "user", "content": st.session_state.get("real")})
             st.session_state["history"].add(subject="Umano", message=st.session_state.get("real"))
             # message = st.session_state["history"].format()
-        logging.info('step 4')
-        logging.info(st.session_state["history"].history)
-        logging.info('step 5')
+        # logging.info('step 4')
+        # logging.info(st.session_state["history"].history)
+        # logging.info('step 5')
 
         with st.chat_message("assistant", avatar=BOT_LOGO_URL):
             stream = client.chat.completions.create(
@@ -134,13 +124,13 @@ with response_container:
                 **ARGS)     
             response = st.write_stream(response_generator(stream))
             st.session_state["input_disabled"] = False
-            logging.info('Input OK')
+            logging.debug('Input OK')
     
-        logging.info('step 6')
+        # logging.info('step 6')
         st.session_state.messages.append({"role": "assistant", "content": response})
         st.session_state["history"].add(subject="AI", message=response)
-        logging.info('step 7')
-logging.info('step 8')
+        # logging.info('step 7')
+# logging.info('step 8')
 
 with input_container:
     input_placeholder.chat_input(
@@ -149,15 +139,15 @@ with input_container:
         disabled=st.session_state["input_disabled"],
         on_submit=disable_input,
         key = "real")
-    logging.info('step 9')
-    if st.session_state.get("real"):
-        logging.info(f'prompt: {st.session_state.get("real")}')
-        logging.info('pre add user mess')
+    # logging.info('step 9')
+    # if st.session_state.get("real"):
+        # logging.info(f'prompt: {st.session_state.get("real")}')
+        # logging.info('pre add user mess')
         # st.session_state.messages.append({"role": "user", "content": st.session_state.get("real")})
-        logging.info('post add user mess')
-        logging.info(f'message: {st.session_state.messages}')
-        logging.info('step 9.5')
+        # logging.info('post add user mess')
+        # logging.info(f'message: {st.session_state.messages}')
+        # logging.info('step 9.5')
 
 # st.chat_input("ciao")
-logging.info('step 10')
-logging.info(st.session_state['history'].history)
+# logging.info('step 10')
+# logging.info(st.session_state['history'].history)
