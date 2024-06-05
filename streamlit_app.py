@@ -60,6 +60,12 @@ client = OpenAI(
     base_url=OPENAI_API_BASE,
 )
 
+with st.chat_message("assistant", avatar=BOT_LOGO_URL):
+    benv = "Ciao sono Enea, il nuovo assistente generativo di Fastweb, cosa posso fare per te?"
+    response = st.write_stream(benvenuto(benv))
+    st.session_state.messages.append({"role": "assistant", "content": benv})
+    # st.session_state["history"].add(subject="assistant", message=benv)
+
 with st.sidebar:
     st.image(LOGO_URL)
     st.markdown("<h1 style='text-align: right; color: #fdc500;'>Enea v0.4</h1>", unsafe_allow_html=True)
@@ -129,14 +135,14 @@ with response_container:
 
 
 
-    else:
-        st.session_state["input_disabled"] = True
-        with st.chat_message("assistant", avatar=BOT_LOGO_URL):
-            benv = "Ciao sono Enea, il nuovo assistente generativo di Fastweb, cosa posso fare per te?"
-            response = st.write_stream(benvenuto(benv))
-            st.session_state.messages.append({"role": "assistant", "content": benv})
-            # st.session_state["history"].add(subject="assistant", message=benv)
-        st.session_state["input_disabled"] = False
+    # else:
+    #     st.session_state["input_disabled"] = True
+    #     with st.chat_message("assistant", avatar=BOT_LOGO_URL):
+    #         benv = "Ciao sono Enea, il nuovo assistente generativo di Fastweb, cosa posso fare per te?"
+    #         response = st.write_stream(benvenuto(benv))
+    #         st.session_state.messages.append({"role": "assistant", "content": benv})
+    #         # st.session_state["history"].add(subject="assistant", message=benv)
+    #     st.session_state["input_disabled"] = False
 
     logging.info(f'{st.session_state["history"].history}')
 
