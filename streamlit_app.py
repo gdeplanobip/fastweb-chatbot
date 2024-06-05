@@ -121,7 +121,9 @@ with response_container:
                 messages=st.session_state["history"].history,
                 stream=True,
                 **ARGS)     
-            response = st.write_stream(response_generator(stream))
+            # response = st.write_stream(response_generator(stream))
+            for s in stream:
+                st.write(s.choices[0].delta.to_dict().get("content", ""))
             st.session_state["input_disabled"] = False
             logging.info('Input OK')
 
