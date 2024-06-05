@@ -115,7 +115,7 @@ with response_container:
             st.session_state.messages.append({"role": "user", "content": st.session_state.get("real")})
             st.session_state["history"].add(subject="user", message=st.session_state.get("real"))
 
-        with st.chat_message("assistant", avatar=BOT_LOGO_URL):
+        with st.chat_message("assistant", avatar=BOT_LOGO_URL).empty():
             stream = client.chat.completions.create(
                 model="Fastweb/Enea-v0.4-llama3-8b",
                 messages=st.session_state["history"].history,
