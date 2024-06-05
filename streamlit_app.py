@@ -7,7 +7,7 @@ import time
 from openai import OpenAI
 from streamlit_extras.add_vertical_space import add_vertical_space
 from streamlit_extras.colored_header import colored_header
-# from streamlit_float import * 
+from streamlit_float import * 
 
 logging.basicConfig()
 logging.getLogger().setLevel(logging.INFO)
@@ -80,7 +80,7 @@ if "messages" not in st.session_state:
 
 response_container = st.container()
 input_container = st.container()
-# input_container.float("bottom: 6.8rem;")
+input_container.float("bottom: 6.8rem;")
 
 with response_container:
     pass
