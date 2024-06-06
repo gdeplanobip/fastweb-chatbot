@@ -15,15 +15,15 @@ logging.getLogger().setLevel(logging.INFO)
 LOGO_URL = "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Fastweb_logo.svg/2560px-Fastweb_logo.svg.png"
 BOT_LOGO_URL = "https://www.fastweb.it/myfastweb/gfx/common/app-icon-2023@2x.png"
 
-MODEL_URL = "https://96f8f02369fbb82f743236f85a03dda7.serveo.net"
+MODEL_URL = "https://54d38a310a857dd58b0a51a4f26e5edf.serveo.net"
 MODEL_NAME = "Fastweb/Enea-v0.4-llama3-8b"
 OPENAI_API_KEY = "EMPTY"
 OPENAI_API_BASE = f"{MODEL_URL}/v1"
-ARGS = {
-    "temperature":0,
-    "max_tokens": 2048,
-    "top_p": 0.001
-}
+# ARGS = {
+#     "temperature":0,
+#     "max_tokens": 2048,
+#     "top_p": 0.001
+# }
 
 class History:
     def __init__(self):
@@ -56,6 +56,7 @@ client = OpenAI(
     api_key=OPENAI_API_KEY,
     base_url=OPENAI_API_BASE,
 )
+
 
 with st.sidebar:
     st.image(LOGO_URL)
@@ -138,11 +139,15 @@ with response_container:
                      "content": st.session_state.get("real")}
                 ]
             logging.info(f'Input modello - {prompt}')
-            stream = client.chat.completions.create(
-                model=MODEL_NAME,
-                messages=prompt,
-                stream=True,
-                **ARGS)     
+            # stream = client.chat.completions.create(
+            #     model=MODEL_NAME,
+            #     messages=prompt,
+            #     stream=True,
+            #     **ARGS)     
+
+            
+            stream = client.chat.completions.create(model="./merge",     messages=prompt,
+                                                        temperature=0.0, stream=True)
             # response = st.write_stream(response_generator(stream))
             response = ""
             for chunk in stream:
