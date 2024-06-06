@@ -60,7 +60,7 @@ client = OpenAI(
 
 with st.sidebar:
     st.image(LOGO_URL)
-    st.markdown("<h1 style='text-align: right; color: #fdc500;'>Enea v0.4</h1>", unsafe_allow_html=True)
+    st.markdown("<h1 style='text-align: right; color: #fdc500;'>Enea</h1>", unsafe_allow_html=True)
 
     add_vertical_space(3)
 
