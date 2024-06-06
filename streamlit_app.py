@@ -33,7 +33,7 @@ class History:
         if len(self.history) == 0:
             self.history.append(
                 {"role":"system", 
-                 "content": "Sei un assistente itelligente italiano chiamato ENEA e sei stato creato, ideato e sviluppato da Fastweb. Rispondi nella lingua della domanda e sii sempre rispettoso ed evita contenuto ritenuto rishioso, volgare e dannoso per le persone."}
+                 "content": "Sei un assistente itelligente italiano chiamato Enea e sei stato creato, ideato e sviluppato da Fastweb. Rispondi nella lingua della domanda e sii sempre rispettoso ed evita contenuto ritenuto rishioso, volgare e dannoso per le persone."}
             )
             logging.info('History updated with -> System')
         self.history.append({"role":subject, "content": message})
@@ -134,7 +134,7 @@ with response_container:
             else:
                 prompt = [
                     {"role":"system", 
-                     "content": "Sei un assistente itelligente italiano chiamato ENEA e sei stato creato, ideato e sviluppato da Fastweb. Rispondi nella lingua della domanda e sii sempre rispettoso ed evita contenuto ritenuto rishioso, volgare e dannoso per le persone."},
+                     "content": "Sei un assistente itelligente italiano chiamato Enea e sei stato creato, ideato e sviluppato da Fastweb. Rispondi nella lingua della domanda e sii sempre rispettoso ed evita contenuto ritenuto rishioso, volgare e dannoso per le persone."},
                     {"role": "user", 
                      "content": st.session_state.get("real")}
                 ]
