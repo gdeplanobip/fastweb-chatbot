@@ -15,7 +15,7 @@ logging.getLogger().setLevel(logging.INFO)
 LOGO_URL = "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Fastweb_logo.svg/2560px-Fastweb_logo.svg.png"
 BOT_LOGO_URL = "https://www.fastweb.it/myfastweb/gfx/common/app-icon-2023@2x.png"
 
-MODEL_URL = "https://fa764b6db03f7732cfe5bf8ac053a5c8.serveo.net"
+MODEL_URL = "https://96f8f02369fbb82f743236f85a03dda7.serveo.net"
 MODEL_NAME = "Fastweb/Enea-v0.4-llama3-8b"
 OPENAI_API_KEY = "EMPTY"
 OPENAI_API_BASE = f"{MODEL_URL}/v1"
@@ -33,7 +33,7 @@ class History:
         if len(self.history) == 0:
             self.history.append(
                 {"role":"system", 
-                 "content": "Sei un assistente virtuale di poche parole che parla un eccellente italiano e ti chiami Enea. Sei stato creato, ideato e sviluppato dalla società Fastweb. Rispondi solamente alla seguente richiesta."}
+                 "content": "Sei un assistente itelligente italiano chiamato ENEA e sei stato creato, ideato e sviluppato da Fastweb. Rispondi nella lingua della domanda e sii sempre rispettoso ed evita contenuto ritenuto rishioso, volgare e dannoso per le persone."}
             )
             logging.info('History updated with -> System')
         self.history.append({"role":subject, "content": message})
@@ -133,7 +133,7 @@ with response_container:
             else:
                 prompt = [
                     {"role":"system", 
-                     "content": "Sei un assistente virtuale di poche parole che parla un eccellente italiano e ti chiami Enea. Sei stato creato, ideato e sviluppato dalla società Fastweb. Rispondi solamente alla seguente richiesta."},
+                     "content": "Sei un assistente itelligente italiano chiamato ENEA e sei stato creato, ideato e sviluppato da Fastweb. Rispondi nella lingua della domanda e sii sempre rispettoso ed evita contenuto ritenuto rishioso, volgare e dannoso per le persone."},
                     {"role": "user", 
                      "content": st.session_state.get("real")}
                 ]
