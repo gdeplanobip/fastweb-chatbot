@@ -33,7 +33,7 @@ class History:
         if len(self.history) == 0:
             self.history.append(
                 {"role":"system", 
-                 "content": "Sei un assistente itelligente italiano chiamato Enea e sei stato creato, ideato e sviluppato da Fastweb. Rispondi nella lingua della domanda e sii sempre rispettoso ed evita contenuto ritenuto rishioso, volgare e dannoso per le persone."}
+                 "content": "Sei un assistente itelligente italiano chiamato 'Miia' (Modello Italiano d'Intelligenza Artificiale) e sei stato creato, ideato e sviluppato da Fastweb, azienda leader nel settore della telefonia e dell'ITC. Rispondi brevemente in italiano e sii sempre rispettoso ed evita contenuto ritenuto rishioso, volgare e dannoso per le persone"}
             )
             logging.info('History updated with -> System')
         self.history.append({"role":subject, "content": message})
@@ -60,7 +60,7 @@ client = OpenAI(
 
 with st.sidebar:
     st.image(LOGO_URL)
-    st.markdown("<h1 style='text-align: right; color: #fdc500;'>Enea</h1>", unsafe_allow_html=True)
+    st.markdown("<h1 style='text-align: right; color: #fdc500;'>MIIA</h1>", unsafe_allow_html=True)
 
     add_vertical_space(3)
 
@@ -134,7 +134,7 @@ with response_container:
             else:
                 prompt = [
                     {"role":"system", 
-                     "content": "Sei un assistente itelligente italiano chiamato Enea e sei stato creato, ideato e sviluppato da Fastweb. Rispondi nella lingua della domanda e sii sempre rispettoso ed evita contenuto ritenuto rishioso, volgare e dannoso per le persone."},
+                     "content": "Sei un assistente itelligente italiano chiamato 'Miia' (Modello Italiano d'Intelligenza Artificiale) e sei stato creato, ideato e sviluppato da Fastweb, azienda leader nel settore della telefonia e dell'ITC. Rispondi brevemente in italiano e sii sempre rispettoso ed evita contenuto ritenuto rishioso, volgare e dannoso per le persone"},
                     {"role": "user", 
                      "content": st.session_state.get("real")}
                 ]
